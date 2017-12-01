@@ -5,8 +5,7 @@ const app = express()
 const HTTPError = require('node-http-error')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const fetch = require('isomorphic-fetch')
-const fastXmlParser = require('fast-xml-parser')
+const request = require('request-promise')
 
 const port = process.env.PORT || 5000
 const auth = process.env.AUTH || 0
@@ -19,32 +18,36 @@ const neweggUrl = process.env.NEWEGG_URL || ''
 app.use(cors({ credentials: true }))
 app.use(bodyParser.json())
 
-///////////////
-// Endpoints //
-///////////////
-
 app.get('/', (req, res, next) => res.send('Welcome to the Motherbeard api'))
 
-////////////////
-// Newegg API //
-////////////////
+//////////////////////
+// Newegg Endpoints //
+//////////////////////
 
 app.get('/newegg/:keywords', async (req, res, next) => {
   const sortBy = 'sale-price'
   const url = `${neweggUrl}&keywords=${req.params
-    .keywords}&sort-by=${sortBy}&records-per-page=100`
-  const method = 'GET'
-  const headers = { 'Authorization': auth }
-  const response = await fetch(url, {
-    method,
-    headers
-  }).then(r => fastXmlParser.convertToJson(fastXmlParser.getTraversalObj(r)))
-  res.status(200).send(response)
+    .keywords}&sort-by=${sortBy}&records-per-page=10`
+  const options = {
+    uri: url,
+    method: 'GET',
+    headers: {
+      Authorization: auth
+    }
+  }
+
+  request(options)
+    .then(function(response) {
+      res.status(200).send(response)
+    })
+    .catch(function(err) {
+      res.status(200).send('Error fetching Newegg API')
+    })
 })
 
-//////////////
-// Products //
-//////////////
+///////////////////////
+// Product Endpoints //
+///////////////////////
 
 app.post('/products', (req, res, next) => {})
 
