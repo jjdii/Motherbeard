@@ -1,4 +1,4 @@
-# Motherbeard App
+# Motherbeard API
 
 [Wireframes](https://github.com/jjdii/Motherbeard)
 
