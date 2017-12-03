@@ -1,22 +1,19 @@
-##cj key
+## api header
 ```
-00abee535aa78b201092ab00e3af131a0b0630d36312e5b2ab204d8fa30238bcf9effc3d7f8aaa48a9146dab5b334bad7b7aa555c1278b034217d5d26785d575ad/0b259b7fe026f4003f12192fa9d52a3616c3a9a0ddc3c8aeb19c75b892d74ce128491f8c2b33032b3f0ffc97f65e188870f4d3f0fed7264e50f504a59348e7c1
+Authorization: 00abee535aa78b201092ab00e3af131a0b0630d36312e5b2ab204d8fa30238bcf9effc3d7f8aaa48a9146dab5b334bad7b7aa555c1278b034217d5d26785d575ad/0b259b7fe026f4003f12192fa9d52a3616c3a9a0ddc3c8aeb19c75b892d74ce128491f8c2b33032b3f0ffc97f65e188870f4d3f0fed7264e50f504a59348e7c1
 ```
 
-##api header
-`Authorization: [CJ KEY]`
+## api link
+```
+https://product-search.api.cj.com/v2/product-search?website-id=4494766&advertiser-ids=joined
+```
 
-##example api link
-`https://product-search.api.cj.com/v2/product-search?website-id=4494766&advertiser-ids=joined&keywords=ssd`
-
-##example api GET request
+## example api GET request (w/ auth header)
 ```
 GET https://product-search.api.cj.com/v2/product-search?website-id=8482857&advertiser-ids=joined&keywords=ssd&sort-by=sale-price&records-per-page=100
-
-Headers
-Authorization: [CJ KEY]
 ```
-##example api GET response
+
+## example api GET response
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <cj-api>
