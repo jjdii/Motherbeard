@@ -19,12 +19,14 @@ module.exports = url => {
         parseString(response, function(err, result) {
           if (err) reject(err)
 
-          const reassembledResult = map(
+          const baseResult = result['cj-api']['products'][0]
+          const reassembledProducts = map(
             product => mapObjIndexed((val, key, obj) => val[0], product),
-            result['cj-api']['products'][0]['product']
+            baseResult['product']
           )
+          const reassembledOutput = {results: baseResult['$'], products: reassembledProducts}
 
-          resolve(JSON.stringify(reassembledResult))
+          resolve(JSON.stringify(reassembledOutput))
         })
       })
       .catch(function(err) {
