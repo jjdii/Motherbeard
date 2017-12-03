@@ -23,8 +23,8 @@ module.exports = url => {
             product => mapObjIndexed((val, key, obj) => val[0], product),
             result['cj-api']['products'][0]['product']
           )
-          
-          resolve(reassembledResult)
+
+          resolve(JSON.stringify(reassembledResult))
         })
       })
       .catch(function(err) {
