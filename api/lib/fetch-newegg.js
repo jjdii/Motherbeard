@@ -1,7 +1,7 @@
 require('dotenv').config()
 const request = require('request-promise')
 const parseString = require('xml2js').parseString
-const { map, mapObjIndexed } = require('ramda')
+const { map, mapObjIndexed, omit, compose } = require('ramda')
 const auth = process.env.AUTH || 0
 
 module.exports = url => {
@@ -21,12 +21,17 @@ module.exports = url => {
 
           const baseResult = result['cj-api']['products'][0]
           const reassembledProducts = map(
-            product => mapObjIndexed((val, key, obj) => val[0], product),
+            product => {
+              return compose(
+                mapObjIndexed((val, key, obj) => val[0]),
+                omit(['ad-id', 'advertiser-id', 'advertiser-name', 'catalog-id', 'retail-price'])
+              )(product)
+            },
             baseResult['product']
           )
-          const reassembledOutput = {results: baseResult['$'], products: reassembledProducts}
+          const reassembledResult = {results: baseResult['$'], products: reassembledProducts}
 
-          resolve(JSON.stringify(reassembledOutput))
+          resolve(JSON.stringify(reassembledResult))
         })
       })
       .catch(function(err) {
