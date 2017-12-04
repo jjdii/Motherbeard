@@ -20,16 +20,22 @@ module.exports = url => {
           if (err) reject(err)
 
           const baseResult = result['cj-api']['products'][0]
-          const reassembledProducts = map(
-            product => {
-              return compose(
-                mapObjIndexed((val, key, obj) => val[0]),
-                omit(['ad-id', 'advertiser-id', 'advertiser-name', 'catalog-id', 'retail-price'])
-              )(product)
-            },
-            baseResult['product']
-          )
-          const reassembledResult = {results: baseResult['$'], products: reassembledProducts}
+          const reassembledProducts = map(product => {
+            return compose(
+              mapObjIndexed((val, key, obj) => val[0]),
+              omit([
+                'ad-id',
+                'advertiser-id',
+                'advertiser-name',
+                'catalog-id',
+                'retail-price'
+              ])
+            )(product)
+          }, baseResult['product'])
+          const reassembledResult = {
+            results: baseResult['$'],
+            products: reassembledProducts
+          }
 
           resolve(JSON.stringify(reassembledResult))
         })
