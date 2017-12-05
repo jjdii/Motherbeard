@@ -11,7 +11,7 @@ const {
   getProduct,
   updateProduct,
   deleteProduct,
-  listProducts
+  listDocs
 } = require('./dal')
 const {
   propOr,
@@ -47,10 +47,8 @@ app.get('/newegg/products', async (req, res, next) => {
   const keywords = encodeURIComponent(propOr('', 'keywords', req.query))
   const recordsPerPage = propOr('10', 'count', req.query)
   const lowPrice = propOr('5', 'low', req.query)
-  const highPrice = propOr('20000', 'high', req.query)
+  const highPrice = propOr('10000', 'high', req.query)
   const url = `${neweggUrl}&keywords=${keywords}&currency=USD&sort-by=sale-price&records-per-page=${recordsPerPage}&low-sale-price=${lowPrice}&high-sale-price=${highPrice}`
-
-  console.log('newegg fetch url', url)
 
   fetchNewegg(url)
     .then(result => res.status(200).send(result))
@@ -78,7 +76,7 @@ app.post('/products', (req, res, next) => {
     prop('body')
   )(req)
 
-  const missingFields = checkRequiredFields(['name'], body)
+  const missingFields = checkRequiredFields(['name', 'type'], body)
 
   if (not(isEmpty(missingFields))) {
     return next(
@@ -113,7 +111,7 @@ app.put('/products/:id', (req, res, next) => {
     )
   }
 
-  const missingFields = checkRequiredFields(['name'], body)
+  const missingFields = checkRequiredFields(['name', 'type'], body)
 
   if (not(isEmpty(missingFields))) {
     return next(
@@ -136,7 +134,7 @@ app.delete('/products/:id', (req, res, next) => {
 })
 
 app.get('/products', (req, res, next) => {
-  listProducts()
+  listDocs({ include_docs: true })
     .then(result =>
       res.status(200).send(filter(propEq('type', 'product'), result))
     )

@@ -15,12 +15,12 @@ const addProduct = doc =>
 const getProduct = id => get(id)
 const updateProduct = doc => upd(doc)
 const deleteProduct = id => del(id)
-const listProducts = () => all({ include_docs: true })
+const listDocs = opts => all(opts)
 
 module.exports = {
   addProduct,
   getProduct,
   updateProduct,
   deleteProduct,
-  listProducts
+  listDocs
 }

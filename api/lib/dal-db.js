@@ -14,8 +14,8 @@ const del = id =>
     .get(id)
     .then(doc => db.remove(doc))
     .catch(err => console.log(err))
-const all = options => {
-  return db.allDocs(options).then(docs => pluck('doc', docs.rows))
+const all = opts => {
+  return db.allDocs(opts).then(docs => pluck('doc', docs.rows))
 }
 const find = query => (query ? db.find(query).then(res => res.docs) : [])
 
