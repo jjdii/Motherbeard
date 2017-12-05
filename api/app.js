@@ -33,7 +33,8 @@ const {
   join,
   path,
   filter,
-  propEq
+  propEq,
+  reduce
 } = require('ramda')
 const port = process.env.PORT || 5000
 const neweggUrl = process.env.NEWEGG_URL
@@ -61,6 +62,23 @@ app.get('/newegg/test', async (req, res, next) => {
   fetchNewegg(url)
     .then(result => res.status(200).send(result))
     .catch(err => res.status(500).send('Error fetching Newegg API'))
+})
+
+app.post('/newegg/build', async (req, res, next) => {
+  const url = `${neweggUrl}&currency=USD&sort-by=sale-price&records-per-page=10`
+
+  const promiseArr = compose(
+    reduce(
+      (acc, val) =>
+        acc.concat(fetchNewegg(`${url}&keywords=${propOr('', 'name', val)}`)),
+      []
+    ),
+    path(['body', 'build'])
+  )(req)
+
+  Promise.all(promiseArr).then(result => {
+    res.status(200).send(result[0])
+  })
 })
 
 ///////////////////////
