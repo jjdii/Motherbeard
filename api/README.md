@@ -1,9 +1,5 @@
 # Motherbeard API
 
-[Wireframes](https://github.com/jjdii/Motherbeard)
-
-[User Stories](https://github.com/jjdii/Motherbeard)
-
-[API](https://github.com/jjdii/Motherbeard)
-
-[Database](https://github.com/jjdii/Motherbeard)
+- [Wireframes](https://github.com/jjdii/Motherbeard/blob/master/docs/wireframes.md)
+- [User Stories](https://github.com/jjdii/Motherbeard/blob/master/docs/user-stories.md)
+- [Database](https://github.com/jjdii/Motherbeard/blob/master/docs/db.md)
