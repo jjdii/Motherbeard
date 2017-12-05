@@ -33,26 +33,31 @@ Created by users or admins via the template form. Used to establish specificatio
   "_id": "template_low_budget_desktop",
   "_rev": "1-43a7e2d598f5df2cb36eda50198cd105",
   "name": "Low Budget Desktop",
-  "build": {
-    motherboard: {
+  "build": [
+    {
+      "name": "motherboard",
       "maxMemory": "32gb"
     },
-    processor: {
-      "socket": "fm2", //-> AMD or Intel
+    {
+      "name": "processor",
+      "socket": "fm2",
       "speed": "2.8ghz",
       "cores": "2"
     },
-    memory: {
+    {
+      "name": "memory",
       "size": "16gb"
     },
-    storage: {
+    {
+      "name": "storage",
       "size": "256gb",
-      "type": "ssd" //-> SSD or HHD
+      "type": "ssd"
     },
-    video: {
+    {
+      "name": "video card",
       "size": "2gb"
     }
-  },
+  ],
   "type": "template"
 }
 ```
@@ -67,7 +72,7 @@ A list of `product` ids created from a series of newegg API calls per the given 
   "name": "Low Budget Desktop",
   "templateId": "template_low_budget_desktop"
   "products": [
-    "lenovo_9SIAE485VU6750", //-> Product Id
+    "lenovo_9SIAE485VU6750",
     ...
   ],
   "type": "build"

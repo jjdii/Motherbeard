@@ -52,7 +52,7 @@ app.get('/', (req, res, next) => res.send('Welcome to the Motherbeard api'))
 // Newegg Endpoints //
 //////////////////////
 
-app.get('/newegg/test', async (req, res, next) => {
+app.get('/newegg/products', async (req, res, next) => {
   const keywords = encodeURIComponent(propOr('', 'keywords', req.query))
   const recordsPerPage = propOr('10', 'count', req.query)
   const lowPrice = propOr('5', 'low', req.query)
@@ -64,7 +64,7 @@ app.get('/newegg/test', async (req, res, next) => {
     .catch(err => res.status(500).send('Error fetching Newegg API'))
 })
 
-app.post('/newegg/build', async (req, res, next) => {
+app.post('/newegg/builds', async (req, res, next) => {
   const url = `${neweggUrl}&currency=USD&sort-by=sale-price&records-per-page=10`
 
   const promiseArr = compose(
@@ -76,9 +76,9 @@ app.post('/newegg/build', async (req, res, next) => {
     path(['body', 'build'])
   )(req)
 
-  Promise.all(promiseArr).then(result => {
-    res.status(200).send(result[0])
-  })
+  Promise.all(promiseArr)
+    .then(result => res.status(200).send(result[0]))
+    .catch(err => res.status(500).send('Error fetching Newegg API'))
 })
 
 ///////////////////////
