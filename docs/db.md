@@ -50,11 +50,7 @@ Created by users or admins via the template form. Used as to establish specifica
       "type": "ssd" -> SSD || HHD
     },
     video: {
-      "size": "2gb",
-      "crossfire": "false"
-    },
-    case: {
-      "type": "mid" -> Mini || Mid || Full
+      "size": "2gb"
     }
   },
   "type": "template"
@@ -71,7 +67,8 @@ A list of `products` created from a series of tailored newegg API calls per the 
   "name": "Low Budget Desktop",
   "templateId": "template_low_budget_desktop"
   "products": [
-
+    "lenovo_9SIAE485VU6750",
+    ...
   ],
   "type": "build"
 }
