@@ -1,6 +1,6 @@
 const { assoc, prop } = require('ramda')
 const pkGenerator = require('./lib/pk-generator')
-const { add, get, upd, del, all } = require('./lib/dal-db')
+const { add, get, upd, del, all } = require('./lib/dal-couchdb')
 
 //////////////
 // Products //
@@ -40,9 +40,9 @@ const getBuild = id => get(id)
 const updateBuild = doc => upd(doc)
 const deleteBuild = id => del(id)
 
-/////////////
-// MangoDB //
-/////////////
+/////////////////////
+// Mango Functions //
+/////////////////////
 
 const listDocs = opts => all(opts)
 

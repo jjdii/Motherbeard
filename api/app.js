@@ -51,7 +51,7 @@ app.get('/', (req, res, next) => res.send('Welcome to the Motherbeard api'))
 // Newegg Endpoints //
 //////////////////////
 
-app.get('/newegg/products', async (req, res, next) => {
+app.get('/newegg/test', async (req, res, next) => {
   const keywords = encodeURIComponent(propOr('', 'keywords', req.query))
   const recordsPerPage = propOr('10', 'count', req.query)
   const lowPrice = propOr('5', 'low', req.query)
