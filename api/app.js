@@ -153,9 +153,173 @@ app.get('/products', (req, res, next) => {
 // Template Endpoints //
 ////////////////////////
 
+app.post('/templates', (req, res, next) => {
+  if (isEmpty(prop('body', req))) {
+    return next(
+      new HTTPError(400, {
+        ok: false,
+        message:
+          'Missing request body.  Content-Type header should be application/json.'
+      })
+    )
+  }
+
+  const body = compose(
+    omit(['_id', '_rev']),
+    merge(__, { type: 'template' }),
+    prop('body')
+  )(req)
+
+  const missingFields = checkRequiredFields(['name', 'type'], body)
+
+  if (not(isEmpty(missingFields))) {
+    return next(
+      new HTTPError(400, {
+        ok: false,
+        message: `Missing required fields: ${join(' ', missingFields)}`
+      })
+    )
+  }
+
+  addTemplate(body)
+    .then(result => res.status(201).send(result))
+    .catch(err => next(new HTTPError(err.status, err.message)))
+})
+
+app.get('/templates/:id', (req, res, next) => {
+  getTemplate(path(['params', 'id'], req))
+    .then(result => res.status(200).send(result))
+    .catch(err => next(new HTTPError(err.status, err.message)))
+})
+
+app.put('/templates/:id', (req, res, next) => {
+  const body = prop('body', req)
+
+  if (isEmpty(body)) {
+    return next(
+      new HTTPError(400, {
+        ok: false,
+        message:
+          'Missing request body.  Content-Type header should be application/json.'
+      })
+    )
+  }
+
+  const missingFields = checkRequiredFields(['name', 'type'], body)
+
+  if (not(isEmpty(missingFields))) {
+    return next(
+      new HTTPError(400, {
+        ok: false,
+        message: `Missing required fields: ${join(' ', missingFields)}`
+      })
+    )
+  }
+
+  updateTemplate(body)
+    .then(result => res.status(200).send(result))
+    .catch(err => next(new HTTPError(err.status, err.message)))
+})
+
+app.delete('/templates/:id', (req, res, next) => {
+  deleteTemplate(path(['params', 'id'], req))
+    .then(result => res.status(200).send(result))
+    .catch(err => next(new HTTPError(err.status, err.message)))
+})
+
+app.get('/templates', (req, res, next) => {
+  listDocs({ include_docs: true })
+    .then(result =>
+      res.status(200).send(filter(propEq('type', 'template'), result))
+    )
+    .catch(err => next(new HTTPError(err.status, err.message)))
+})
+
 /////////////////////
 // Build Endpoints //
 /////////////////////
+
+app.post('/builds', (req, res, next) => {
+  if (isEmpty(prop('body', req))) {
+    return next(
+      new HTTPError(400, {
+        ok: false,
+        message:
+          'Missing request body.  Content-Type header should be application/json.'
+      })
+    )
+  }
+
+  const body = compose(
+    omit(['_id', '_rev']),
+    merge(__, { type: 'build' }),
+    prop('body')
+  )(req)
+
+  const missingFields = checkRequiredFields(['name'], body)
+
+  if (not(isEmpty(missingFields))) {
+    return next(
+      new HTTPError(400, {
+        ok: false,
+        message: `Missing required fields: ${join(' ', missingFields)}`
+      })
+    )
+  }
+
+  addBuild(body)
+    .then(result => res.status(201).send(result))
+    .catch(err => next(new HTTPError(err.status, err.message)))
+})
+
+app.get('/builds/:id', (req, res, next) => {
+  getBuild(path(['params', 'id'], req))
+    .then(result => res.status(200).send(result))
+    .catch(err => next(new HTTPError(err.status, err.message)))
+})
+
+app.put('/builds/:id', (req, res, next) => {
+  const body = prop('body', req)
+
+  if (isEmpty(body)) {
+    return next(
+      new HTTPError(400, {
+        ok: false,
+        message:
+          'Missing request body.  Content-Type header should be application/json.'
+      })
+    )
+  }
+
+  const missingFields = checkRequiredFields(['name'], body)
+
+  if (not(isEmpty(missingFields))) {
+    return next(
+      new HTTPError(400, {
+        ok: false,
+        message: `Missing required fields: ${join(' ', missingFields)}`
+      })
+    )
+  }
+
+  updateBuild(body)
+    .then(result => res.status(200).send(result))
+    .catch(err => next(new HTTPError(err.status, err.message)))
+})
+
+app.delete('/builds/:id', (req, res, next) => {
+  deleteBuild(path(['params', 'id'], req))
+    .then(result => res.status(200).send(result))
+    .catch(err => next(new HTTPError(err.status, err.message)))
+})
+
+app.get('/builds', (req, res, next) => {
+  listDocs({ include_docs: true })
+    .then(result =>
+      res.status(200).send(filter(propEq('type', 'build'), result))
+    )
+    .catch(err => next(new HTTPError(err.status, err.message)))
+})
 
 ///////////////////
 // Error Handler //
