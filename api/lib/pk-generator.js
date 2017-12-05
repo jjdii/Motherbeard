@@ -9,7 +9,8 @@ const {
   trim
 } = require('ramda')
 
-module.exports = (name, delimiter) =>
+module.exports = (prefix, name, delimiter) =>
+  prefix +
   compose(
     join(delimiter),
     arr => (contains(head(arr), ['a', 'the']) ? drop(1, arr) : arr),

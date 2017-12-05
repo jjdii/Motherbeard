@@ -11,6 +11,14 @@ const {
   getProduct,
   updateProduct,
   deleteProduct,
+  addTemplate,
+  getTemplate,
+  updateTemplate,
+  deleteTemplate,
+  addBuild,
+  getBuild,
+  updateBuild,
+  deleteBuild,
   listDocs
 } = require('./dal')
 const {
@@ -140,6 +148,14 @@ app.get('/products', (req, res, next) => {
     )
     .catch(err => next(new HTTPError(err.status, err.message)))
 })
+
+////////////////////////
+// Template Endpoints //
+////////////////////////
+
+/////////////////////
+// Build Endpoints //
+/////////////////////
 
 ///////////////////
 // Error Handler //
