@@ -1,7 +1,7 @@
 # Motherbeard Database Objects
 
 ## product
-Returned from fetches to the newegg API. `builds` contain an array of these.
+Returned from fetches to the newegg API. A `build` contains an array of these.
 
 ```
 {
@@ -26,7 +26,7 @@ Returned from fetches to the newegg API. `builds` contain an array of these.
 ```
 
 ## template
-Created by users or admins via the template form. Used as to establish specifications when generating `builds`.
+Created by users or admins via the template form. Used to establish specifications when generating a `build`.
 
 ```
 {
@@ -38,7 +38,7 @@ Created by users or admins via the template form. Used as to establish specifica
       "maxMemory": "32gb"
     },
     processor: {
-      "socket": "fm2", -> AMD || Intel
+      "socket": "fm2", //-> AMD or Intel
       "speed": "2.8ghz",
       "cores": "2"
     },
@@ -47,7 +47,7 @@ Created by users or admins via the template form. Used as to establish specifica
     },
     storage: {
       "size": "256gb",
-      "type": "ssd" -> SSD || HHD
+      "type": "ssd" //-> SSD or HHD
     },
     video: {
       "size": "2gb"
@@ -58,7 +58,7 @@ Created by users or admins via the template form. Used as to establish specifica
 ```
 
 ## build
-A list of `products` created from a series of tailored newegg API calls per the given `templates` specfications.
+A list of `product` ids created from a series of newegg API calls per the given `template`'s specfications.
 
 ```
 {
@@ -67,7 +67,7 @@ A list of `products` created from a series of tailored newegg API calls per the 
   "name": "Low Budget Desktop",
   "templateId": "template_low_budget_desktop"
   "products": [
-    "lenovo_9SIAE485VU6750",
+    "lenovo_9SIAE485VU6750", //-> Product Id
     ...
   ],
   "type": "build"
