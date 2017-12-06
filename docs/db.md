@@ -36,25 +36,30 @@ Created by users or admins via the template form. Used to establish specificatio
   "build": [
     {
       "name": "motherboard",
+      "keywords": "mobo 32gb",
       "maxMemory": "32gb"
     },
     {
       "name": "processor",
+      "keywords": "cpu fm2 2.8ghz dual-core",
       "socket": "fm2",
       "speed": "2.8ghz",
       "cores": "2"
     },
     {
       "name": "memory",
+      "keywords": "16gb",
       "size": "16gb"
     },
     {
       "name": "storage",
+      "keywords": "drive 256gb ssd",
       "size": "256gb",
       "type": "ssd"
     },
     {
       "name": "video card",
+      "keywords": "vram gpu 2gb",
       "size": "2gb"
     }
   ],

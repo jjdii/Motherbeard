@@ -5,6 +5,7 @@ const HTTPError = require('node-http-error')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const checkRequiredFields = require('./lib/check-required-fields')
+const pkGenerator = require('./lib/pk-generator')
 const fetchNewegg = require('./lib/fetch-newegg')
 const {
   addProduct,
@@ -23,6 +24,7 @@ const {
 } = require('./dal')
 const {
   propOr,
+  pathOr,
   compose,
   not,
   isEmpty,
@@ -30,11 +32,15 @@ const {
   omit,
   merge,
   __,
+  split,
   join,
   path,
   filter,
   propEq,
-  reduce
+  reduce,
+  trim,
+  concat,
+  toLower
 } = require('ramda')
 const port = process.env.PORT || 5000
 const neweggUrl = process.env.NEWEGG_URL
@@ -68,17 +74,78 @@ app.post('/newegg/builds', async (req, res, next) => {
   const url = `${neweggUrl}&currency=USD&sort-by=sale-price&records-per-page=10`
 
   const promiseArr = compose(
-    reduce(
-      (acc, val) =>
-        acc.concat(fetchNewegg(`${url}&keywords=${propOr('', 'name', val)}`)),
-      []
-    ),
+    reduce((acc, val) => {
+      const name = propOr('', 'name', val)
+      const keywords = propOr('', 'keywords', val)
+      const lowPrice = propOr('5', 'low', val)
+      const highPrice = propOr('10000', 'high', val)
+
+      let keywordStr = ''
+      if (not(isEmpty(name)) && not(isEmpty(keywords))) {
+        // keywordStr = `&keywords=+${name}+${compose(join('+'), split(' '), trim)(
+        //   keywords
+        // )}`
+        keywordStr = `&keywords=${name}`
+      }
+
+      return acc.concat(
+        fetchNewegg(
+          `${url}${keywordStr}&low-sale-price=${lowPrice}&high-sale-price=${highPrice}`
+        )
+      )
+    }, []),
     path(['body', 'build'])
   )(req)
 
   Promise.all(promiseArr)
-    .then(result => res.status(200).send(result[0]))
-    .catch(err => res.status(500).send('Error fetching Newegg API'))
+    .then(result => {
+      //res.status(200).send(result)
+
+      let buildArr = []
+      let i = 0
+      result.forEach(products => {
+        const productsArr = prop('products', JSON.parse(products))
+        const searchFor = split(
+          ' ',
+          concat(
+            pathOr('', ['body', 'build', i, 'name'], req) + ' ',
+            pathOr('', ['body', 'build', i, 'keywords'], req)
+          )
+        )
+
+        productsArr.some(product => {
+          const category = toLower(product['advertiser-category'])
+          const searchHits = reduce(
+            (acc, val) =>
+              category.search(toLower(val)) === -1 ? acc : acc + 1,
+            0,
+            searchFor
+          )
+
+          let val = pkGenerator(
+            'product_',
+            trim(product['manufacturer-name']) + '_' + trim(product['sku']),
+            '_'
+          )
+
+          if (searchHits > 0) return buildArr.push(i + '_' + val)
+        })
+
+        i++
+      })
+
+      res.status(200).send({
+        _id: pkGenerator('build_', path(['body', 'name'], req), '_'),
+        name: path(['body', 'name'], req),
+        templateId: path(['body', '_id'], req),
+        products: buildArr,
+        type: 'build'
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).send('Error fetching Newegg API')
+    })
 })
 
 ///////////////////////
