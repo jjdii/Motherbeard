@@ -30,10 +30,7 @@ const connector = connect(
   state => state,
   dispatch => {
     return {
-      onMount: () => {
-        // dispatch(setBuilds)
-        // dispatch(setProducts)
-      }
+      onMount: () => {}
     }
   }
 )

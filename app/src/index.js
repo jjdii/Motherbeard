@@ -4,6 +4,8 @@ import registerServiceWorker from './registerServiceWorker'
 import { Provider } from 'react-redux'
 import store from './store'
 import ReactDOM from 'react-dom'
+import { setBuilds } from './action-creators/builds'
+import { setProducts } from './action-creators/products'
 import './index.css'
 
 ReactDOM.render(
@@ -14,3 +16,6 @@ ReactDOM.render(
 )
 
 registerServiceWorker()
+
+store.dispatch(setBuilds)
+store.dispatch(setProducts)
