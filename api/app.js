@@ -102,6 +102,7 @@ app.post('/newegg/builds', async (req, res, next) => {
       //res.status(200).send(result)
 
       let buildArr = []
+      let productFound = 0
       let i = 0
       result.forEach(products => {
         const productsArr = prop('products', JSON.parse(products))
@@ -113,6 +114,7 @@ app.post('/newegg/builds', async (req, res, next) => {
           )
         )
 
+        productFound = 0
         productsArr.some(product => {
           const category = toLower(product['advertiser-category'])
           const searchHits = reduce(
@@ -128,8 +130,13 @@ app.post('/newegg/builds', async (req, res, next) => {
             '_'
           )
 
+          productFound += searchHits
           if (searchHits > 0) return buildArr.push(i + '_' + val)
         })
+
+        if (productFound === 0) {
+          buildArr.push(null)
+        }
 
         i++
       })
