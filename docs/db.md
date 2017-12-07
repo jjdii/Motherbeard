@@ -5,7 +5,7 @@ Returned from fetches to the newegg API. A `build` contains an array of these.
 
 ```
 {
-  "_id": "lenovo_9SIAE485VU6750",
+  "_id": "product_lenovo_9SIAE485VU6750",
   "_rev": "8-70b7e2d598f5df2cb36eda50198cd105",
   "advertiser-category": "Hard Drives",
   "buy-url": "http://www.anrdoezrs.net/click-8482857-11517614-1512046394785?url=https%3A%2F%2Fwww.newegg.com%2FProduct%2FProduct.aspx%3FItem%3D9SIAE485VU6750%26nm_mc%3DAFC-C8Junction-MKPL%26cm_mmc%3DAFC-C8Junction-MKPL-_-Hard%2BDrives-_-Lenovo-_-9SIAE485VU6750&cjsku=9SIAE485VU6750",
@@ -31,36 +31,46 @@ Created by users or admins via the template form. Used to establish specificatio
 ```
 {
   "_id": "template_low_budget_desktop",
-  "_rev": "1-43a7e2d598f5df2cb36eda50198cd105",
+  "_rev": "2a01uie2d598f5df2cb36eda50198cd105",
   "name": "Low Budget Desktop",
   "build": [
     {
       "name": "motherboard",
-      "keywords": "mobo 32gb",
-      "maxMemory": "32gb"
+      "keywords": "32gb",
+      "maxMemory": "32gb",
+      "low": "40",
+      "high": "300"
     },
     {
       "name": "processor",
-      "keywords": "cpu fm2 2.8ghz dual-core",
+      "keywords": "2.8ghz dual",
       "socket": "fm2",
       "speed": "2.8ghz",
-      "cores": "2"
+      "cores": "2",
+      "low": "40",
+      "high": "300"
     },
     {
       "name": "memory",
       "keywords": "16gb",
-      "size": "16gb"
+      "size": "16gb",
+      "low": "20",
+      "high": "300"
     },
     {
       "name": "storage",
-      "keywords": "drive 256gb ssd",
+      "keywords": "256gb ssd",
       "size": "256gb",
-      "type": "ssd"
+      "type": "ssd",
+      "low": "20",
+      "high": "300"
     },
     {
       "name": "video card",
-      "keywords": "vram gpu 2gb",
-      "size": "2gb"
+      "keywords": "2gb",
+      "size": "2gb",
+      "low": "40",
+      "high": "300"
     }
   ],
   "type": "template"
@@ -77,7 +87,7 @@ A list of `product` ids created from a series of newegg API calls per the given 
   "name": "Low Budget Desktop",
   "templateId": "template_low_budget_desktop"
   "products": [
-    "lenovo_9SIAE485VU6750",
+    "product_lenovo_9SIAE485VU6750",
     ...
   ],
   "type": "build"
