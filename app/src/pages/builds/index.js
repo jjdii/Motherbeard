@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { setBuilds } from '../../action-creators/builds'
 import { setProducts } from '../../action-creators/products'
-import { prop, map } from 'ramda'
+import { prop, map, find, propEq } from 'ramda'
 
-const listBuildProducts = product => <li key={product}>{product}</li>
+const listBuildProducts = productId => <li key={productId}>{productId}</li>
 
 const listBuild = build => (
   <li key={prop('_id', build)}>
@@ -17,6 +17,7 @@ class Builds extends React.Component {
   componentDidMount() {
     this.props.onMount()
   }
+
   render() {
     return (
       <div>

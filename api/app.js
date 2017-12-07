@@ -175,6 +175,7 @@ app.post('/newegg/builds', async (req, res, next) => {
         //       }, productsArr)
         //     }
         //   } else {
+
         productsArr.some(product => {
           const category = toLower(product['advertiser-category'])
           const searchHits = reduce(
@@ -187,14 +188,24 @@ app.post('/newegg/builds', async (req, res, next) => {
           if (searchHits >= searchFor.length - 1) {
             productFound += searchHits
 
-            let val = pkGenerator(
+            const productObj = compose(
+              omit(['_id', '_rev']),
+              merge(__, { type: 'product' })
+            )(product)
+
+            addProduct(productObj)
+              .then(result => console.log('build product added'))
+              .catch(err => console.log('err: adding build product', err))
+
+            let _id = pkGenerator(
               'product_',
               trim(product['manufacturer-name']) + '_' + trim(product['sku']),
               '_'
             )
-            return buildArr.push(val)
+            return buildArr.push(_id)
           }
         })
+
         //   }
         //
         //   pageNumber++
@@ -207,13 +218,19 @@ app.post('/newegg/builds', async (req, res, next) => {
         i++
       })
 
-      res.status(200).send({
+      const buildObj = {
         _id: pkGenerator('build_', pathOr('', ['body', 'name'], req), '_'),
         name: pathOr('', ['body', 'name'], req),
         templateId: pathOr('', ['body', '_id'], req),
         products: buildArr,
         type: 'build'
-      })
+      }
+
+      addBuild(omit(['_id', '_rev'], buildObj))
+        .then(result => console.log('build added'))
+        .catch(err => console.log('err: adding build', err))
+
+      res.status(200).send(buildObj)
     })
     .catch(err => {
       console.log(err)
