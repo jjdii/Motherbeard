@@ -40,7 +40,8 @@ const {
   reduce,
   trim,
   concat,
-  toLower
+  toLower,
+  map
 } = require('ramda')
 const port = process.env.PORT || 5000
 const neweggUrl = process.env.NEWEGG_URL
@@ -71,7 +72,8 @@ app.get('/newegg/products', async (req, res, next) => {
 })
 
 app.post('/newegg/builds', async (req, res, next) => {
-  const url = `${neweggUrl}&currency=USD&sort-by=sale-price&records-per-page=10`
+  const recordsPerPage = 1000
+  const url = `${neweggUrl}&currency=USD&sort-by=sale-price&records-per-page=${recordsPerPage}`
 
   const promiseArr = compose(
     reduce((acc, val) => {
@@ -103,9 +105,13 @@ app.post('/newegg/builds', async (req, res, next) => {
 
       let buildArr = []
       let productFound = 0
+      let pageNumber = 1
       let i = 0
       result.forEach(products => {
-        const productsArr = prop('products', JSON.parse(products))
+        const parsedProducts = JSON.parse(products)
+        const totalRecords = path(['results', 'total-matched'], parsedProducts)
+        console.log(totalRecords)
+        let productsArr = prop('products', parsedProducts)
         const searchFor = split(
           ' ',
           concat(
@@ -115,6 +121,60 @@ app.post('/newegg/builds', async (req, res, next) => {
         )
 
         productFound = 0
+        pageNumber = 1
+
+        // while (
+        //   productFound === 0 &&
+        //   (pageNumber * recordsPerPage <= totalRecords || pageNumber < 10)
+        // ) {
+        //   if (pageNumber > 1) {
+        //     if (pageNumber <= 10) {
+        //       productsArr = fetchNewegg(
+        //         `${url}&keywords=${pathOr(
+        //           '',
+        //           ['body', 'build', i, 'name'],
+        //           req
+        //         )}&low-sale-price=${pathOr(
+        //           '',
+        //           ['body', 'build', i, 'low'],
+        //           req
+        //         )}&high-sale-price=${pathOr(
+        //           '',
+        //           ['body', 'build', i, 'high'],
+        //           req
+        //         )}&page-number=${pageNumber}`
+        //       )
+        //         .then(nextPage => prop('products', JSON.parse(nextPage)))
+        //         .catch(err => console.log(err))
+        //
+        //       map(product => {
+        //         const category = toLower(
+        //           propOr('', 'advertiser-category', product)
+        //         )
+        //         //console.log(category)
+        //         const searchHits = reduce(
+        //           (acc, val) =>
+        //             category.search(toLower(val)) === -1 ? acc : acc + 1,
+        //           0,
+        //           searchFor
+        //         )
+        //
+        //         if (searchHits >= searchFor.length - 1) {
+        //           productFound += searchHits
+        //
+        //           let val = pkGenerator(
+        //             'product_',
+        //             trim(product['manufacturer-name']) +
+        //               '_' +
+        //               trim(product['sku']),
+        //             '_'
+        //           )
+        //           console.log(i + '_' + val)
+        //           return buildArr.push(i + '_' + val)
+        //         }
+        //       }, productsArr)
+        //     }
+        //   } else {
         productsArr.some(product => {
           const category = toLower(product['advertiser-category'])
           const searchHits = reduce(
@@ -124,15 +184,21 @@ app.post('/newegg/builds', async (req, res, next) => {
             searchFor
           )
 
-          let val = pkGenerator(
-            'product_',
-            trim(product['manufacturer-name']) + '_' + trim(product['sku']),
-            '_'
-          )
+          if (searchHits >= searchFor.length - 1) {
+            productFound += searchHits
 
-          productFound += searchHits
-          if (searchHits > 0) return buildArr.push(i + '_' + val)
+            let val = pkGenerator(
+              'product_',
+              trim(product['manufacturer-name']) + '_' + trim(product['sku']),
+              '_'
+            )
+            return buildArr.push(val)
+          }
         })
+        //   }
+        //
+        //   pageNumber++
+        // }
 
         if (productFound === 0) {
           buildArr.push(null)
@@ -142,9 +208,9 @@ app.post('/newegg/builds', async (req, res, next) => {
       })
 
       res.status(200).send({
-        _id: pkGenerator('build_', path(['body', 'name'], req), '_'),
-        name: path(['body', 'name'], req),
-        templateId: path(['body', '_id'], req),
+        _id: pkGenerator('build_', pathOr('', ['body', 'name'], req), '_'),
+        name: pathOr('', ['body', 'name'], req),
+        templateId: pathOr('', ['body', '_id'], req),
         products: buildArr,
         type: 'build'
       })
