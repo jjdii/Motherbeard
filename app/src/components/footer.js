@@ -27,34 +27,11 @@ const Footer = props => {
               >
                 Home
               </Link>
-              <Link to="/products/" className="ease-in footer-text">
-                Products
+              <Link to="/builds" className="ease-in footer-text">
+                Builds
               </Link>
-              <Link to="/cart/" className="ease-in footer-text">
+              <Link to="/cart" className="ease-in footer-text">
                 Cart
-              </Link>
-              <Link
-                to="/search/"
-                id="foot-search"
-                className="ease-in footer-text"
-              >
-                Search
-              </Link>
-            </div>
-            <div id="footer-support" className="fleft">
-              <h3 className="footer-title">Support</h3>
-              <Link
-                to="/support/"
-                className="ease-in footer-text"
-                style={{ marginTop: 0, marginLeft: 0 }}
-              >
-                Contact
-              </Link>
-              <Link to="/support/#Guides" className="ease-in footer-text">
-                Guides
-              </Link>
-              <Link to="/support/#FAQ" className="ease-in footer-text">
-                FAQ
               </Link>
             </div>
           </span>

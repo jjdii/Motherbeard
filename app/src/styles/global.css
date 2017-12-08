@@ -517,7 +517,7 @@ span.popout-dropdown a:hover {
   background: #ececec;
   border-top: 1px solid #cacaca;
   display: table;
-  padding-bottom: 28px;
+  padding-bottom: 10px;
 }
 #footer a {
   color: #555;
@@ -546,7 +546,7 @@ h3 {
 #footer-quick-links {
   margin: 28px 0px;
   margin-left: 5%;
-  margin-bottom: 39px;
+  /*margin-bottom: 39px;*/
   width: auto;
 }
 #footer-desc {
@@ -650,13 +650,13 @@ h3 {
   #footer-support,
   #footer-payment,
   #footer-quick-links {
-    margin-left: 4%;
+    margin-left: 6%;
   }
   #footer-payment i {
     font-size: 21px !important;
   }
 }
-@media screen and (max-width: 860px) {
+@media screen and (max-width: 600px) {
   #nav-left {
     display: none;
   }
@@ -703,7 +703,7 @@ h3 {
 		margin-right:4px;
 	}*/
   #footer {
-    padding-bottom: 18px;
+    padding-bottom: 26px;
   }
 }
 @media screen and (max-width: 600px) {
@@ -737,9 +737,9 @@ h3 {
     font-family: 'Lato';
     font-size: 12px;
   }
-  #footer-support {
+  /*#footer-support {
     margin-left: 11%;
-  }
+  }*/
   /*#footer-support .slash, #footer-quick-links .slash {
 		margin-right:4px;
 		display:none;

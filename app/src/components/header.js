@@ -39,17 +39,14 @@ const Header = props => {
             >
               Home
             </Link>
-            <Link to="/products/" className="fleft ease-in no-select">
-              Products
-            </Link>
-            <Link to="/support/" className="fleft ease-in no-select">
-              Support
+            <Link to="/builds" className="fleft ease-in no-select">
+              Builds
             </Link>
           </div>
           <div id="nav-right" className="fright">
             <Link
               id="cart"
-              to="/cart/"
+              to="/cart"
               className="fright ease-in no-select"
               style={{ paddingRight: 0 }}
             >

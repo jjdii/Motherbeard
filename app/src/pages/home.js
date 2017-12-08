@@ -19,9 +19,9 @@ class Home extends React.Component {
           style={{ backgroundImage: `url(${BannerImg})` }}
         >
           <div className="inner-content" style={{ textAlign: 'center' }}>
-            <h1 id="banner-title">{'Save money building your new computer'}</h1>
+            <h1 id="banner-title">Save money building your new computer</h1>
             <Link
-              to="/products/"
+              to="/builds"
               id="shop-button"
               className="ease-in orange-button"
             >
