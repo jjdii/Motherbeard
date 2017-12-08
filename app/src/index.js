@@ -6,7 +6,7 @@ import store from './store'
 import ReactDOM from 'react-dom'
 import { setBuilds } from './action-creators/builds'
 import { setProducts } from './action-creators/products'
-import './index.css'
+import './styles/global.css'
 
 ReactDOM.render(
   <Provider store={store}>

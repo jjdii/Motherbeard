@@ -1,0 +1,282 @@
+#banner {
+  background-color: #fff;
+  /*background-image: url(../images/motherboard-bg.png);
+  background-attachment: fixed;*/
+  background-position: center 45%;
+  background-size: cover;
+  height: 450px;
+}
+#banner:hover {
+  background-color: #f0f0f0;
+}
+h1 {
+  font-size: 21px;
+  line-height: 26px;
+  color: #222;
+}
+#banner-title {
+  margin-top: 186px;
+  margin-bottom: 15px;
+  /*max-width:260px;*/
+  /*text-shadow:0px -1px 0px #fff;*/
+}
+.orange-button {
+  font-family: 'Fira Sans';
+  font-size: 13px;
+  line-height: 13px;
+  height: 13px;
+  padding: 6px 10px;
+  background: #ec8007;
+  color: #fff;
+}
+.orange-button:hover,
+.product-item:hover .orange-button {
+  background: #f7870a;
+}
+.blue-button {
+  font-family: 'Fira Sans';
+  font-size: 13px;
+  line-height: 13px;
+  height: 13px;
+  padding: 6px 10px;
+  background: #044561;
+  color: #f8f8f8;
+}
+.blue-button:hover,
+.product-item:hover .blue-button {
+  background: #f7870a;
+  background: #066087;
+}
+.grey-button {
+  font-family: 'Fira Sans';
+  font-size: 13px;
+  line-height: 13px;
+  height: 13px;
+  padding: 6px 10px;
+  background: #f8f8f8;
+  background: none;
+  color: #222;
+  border: 1px solid #c1c1c1;
+
+  /*-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;*/
+}
+
+.grey-button:hover {
+  color: #044561;
+  border-color: #044561;
+  cursor: pointer;
+}
+.product-item:hover .grey-button {
+  color: #044561;
+  border-color: #044561;
+  cursor: pointer;
+}
+/*.grey-button:hover {
+	background:#f7870a !important;
+}
+.product-item:hover .grey-button {
+	border:1px solid #ec8007;
+	background:#ec8007;
+	color:#fff;
+}*/
+
+#featured-products {
+  margin-top: 70px;
+}
+h2 {
+  text-align: center;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: bold;
+  padding-bottom: 24px;
+  color: #262626;
+}
+p.title-subtext {
+  font-family: 'Lato';
+  font-size: 16px;
+  line-height: 20px;
+}
+#featured-products-inner {
+  font-size: 0;
+}
+.product-item {
+  vertical-align: text-top;
+  padding-bottom: 20px !important;
+  margin-bottom: 38px;
+  /*padding-top:12px;
+	width:18%;
+	padding-left:2%;
+	padding-right:2%;
+	position:relative;*/
+}
+.product-img {
+  width: 100%;
+  height: auto;
+  /*background:#f0f0f0;*/
+}
+.product-price {
+  margin-top: 4px;
+  vertical-align: text-bottom;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: normal;
+  padding-bottom: 5px;
+}
+.decimal {
+  vertical-align: text-top;
+  font-size: 12px;
+  line-height: 20px;
+}
+.product-link {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 600;
+  color: #555;
+}
+p.product-list-item {
+  font-family: 'Lato';
+  font-size: 13px;
+  line-height: 16px;
+  color: #555;
+  padding-left: 10px;
+  padding-bottom: 2px;
+}
+.vpd-wrap {
+  margin-top: 26px;
+  margin-bottom: 4px;
+}
+.pli-wrap {
+  margin-top: 11px;
+}
+/*.product-item:hover {
+	-webkit-box-shadow: 0px 0px 15px 1px #d1d1d1;
+	-moz-box-shadow: 0px 0px 15px 1px #d1d1d1;
+	box-shadow: 0px 0px 15px 1px #d1d1d1;
+
+	margin-top:-2px;
+}*/
+.product-link:hover,
+.product-item:hover .product-link {
+  color: #044561;
+}
+
+#brands {
+  margin: 98px 0px;
+  margin-top: 54px;
+}
+#brands-inner,
+#brands-inner img {
+  vertical-align: middle;
+  text-align: center;
+}
+#brands-inner img {
+  filter: grayscale(100%);
+  opacity: 0.45;
+}
+#brands-inner img:hover {
+  filter: grayscale(0%);
+  opacity: 0.65;
+}
+.vertical-brand,
+.horizontal-brand {
+  padding: 5px 11px;
+}
+.vertical-brand {
+  width: 50px;
+}
+.horizontal-brand {
+  height: 20px;
+}
+#adata-logo,
+#g-skill-logo,
+#phanteks-logo,
+#xfx-logo {
+  width: 75px;
+  height: auto;
+}
+#seagate-logo {
+  width: 110px;
+  height: auto;
+}
+#lg-logo {
+  width: 65px;
+  height: auto;
+}
+#phanteks-logo,
+#gigabyte-logo {
+  width: 130px;
+  height: auto;
+}
+#tp-link-logo {
+  height: 18px;
+  width: auto;
+}
+
+@media screen and (max-width: 1360px) {
+  /*#banner {
+		background-position: center 90% !important;
+	}*/
+}
+
+@media screen and (max-width: 860px) {
+  #featured-products-inner {
+    width: 66%;
+  }
+  .product-item {
+    width: 46%;
+    margin-left: 8%;
+  }
+  .product-item:nth-child(4) {
+    margin-left: 0;
+  }
+}
+@media screen and (max-width: 600px) {
+  #featured-products-inner {
+    width: 60%;
+  }
+  .product-item {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  #brands-inner {
+    width: 90%;
+    max-width: 90%;
+  }
+  .vertical-brand,
+  .horizontal-brand {
+    padding: 5px 11px;
+  }
+  .vertical-brand {
+    width: 40px;
+  }
+  .horizontal-brand {
+    height: 15px;
+  }
+  #adata-logo,
+  #g-skill-logo,
+  #phanteks-logo,
+  #xfx-logo {
+    width: 50px;
+    height: auto;
+  }
+  #seagate-logo {
+    height: 17px;
+    width: auto;
+  }
+  #lg-logo {
+    width: 59px;
+    height: auto;
+  }
+  #phanteks-logo,
+  #gigabyte-logo {
+    height: 13px;
+    width: auto;
+  }
+  #tp-link-logo {
+    height: 13px;
+    width: auto;
+  }
+}

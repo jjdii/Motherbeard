@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import MenuAppBar from '../components/app-bar'
+import Header from '../components/header'
+import '../styles/home.css'
 
 class Home extends React.Component {
   componentDidMount() {}
   render() {
     return (
       <div>
-        <MenuAppBar title="Motherbeard" />
+        <Header title="Motherbeard" />
       </div>
     )
   }

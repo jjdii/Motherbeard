@@ -9,7 +9,6 @@ import history from './history'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import customTheme from './theme.js'
-import './App.css'
 
 const App = props => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { find, propEq, prop } from 'ramda'
-import MenuAppBar from '../../components/app-bar'
+import Header from '../../components/header'
 
 class ShowBuild extends React.Component {
   componentDidMount() {}
@@ -11,7 +11,7 @@ class ShowBuild extends React.Component {
     )
     return (
       <div>
-        <MenuAppBar title={prop('name', buildObj)} />
+        <Header title={prop('name', buildObj)} />
         {JSON.stringify(buildObj)}
       </div>
     )
