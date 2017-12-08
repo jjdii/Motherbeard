@@ -1,24 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { mapObjIndexed, find, propEq } from 'ramda'
+import { find, propEq, toLower } from 'ramda'
 
-const listBuildProduct = product => <li key={product._id}>{product.name}</li>
-
-class ShowBuild extends React.Component {
+class ShowProduct extends React.Component {
   componentDidMount() {}
   render() {
-    const buildObj = find(propEq('_id', this.props.match.params.id))(
-      this.props.builds
+    const productObj = find(propEq('_id', this.props.match.params.id))(
+      this.props.products
     )
+    console.log(this.props.products)
     return (
       <div>
-        <h2>{'Build:'}</h2>
-        <h3>{this.props.match.params.id}</h3>
-        {JSON.stringify(buildObj)}
+        <h1>{'Product:'}</h1>
+        {JSON.stringify(productObj)}
       </div>
     )
   }
 }
 
 const connector = connect(state => state)
-export default connector(ShowBuild)
+export default connector(ShowProduct)

@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { mapObjIndexed, find, propEq } from 'ramda'
-
-const listBuildProduct = product => <li key={product._id}>{product.name}</li>
+import { find, propEq } from 'ramda'
 
 class ShowBuild extends React.Component {
   componentDidMount() {}
@@ -12,8 +10,7 @@ class ShowBuild extends React.Component {
     )
     return (
       <div>
-        <h2>{'Build:'}</h2>
-        <h3>{this.props.match.params.id}</h3>
+        <h1>{'Build:'}</h1>
         {JSON.stringify(buildObj)}
       </div>
     )

@@ -1,17 +1,17 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { prop, map, find, propEq } from 'ramda'
 
-const listBuildProducts = productId => <li key={productId}>{productId}</li>
-
-const listBuild = build => (
-  <li key={prop('_id', build)}>
-    <h3>{prop('name', build)}</h3>
-    <ul>{map(listBuildProducts, build.products)}</ul>
+const listProduct = product => (
+  <li key={prop('_id', product)}>
+    <Link to={`/products/${prop('_id', product)}`}>
+      <h3>{prop('name', product)}</h3>
+    </Link>
   </li>
 )
 
-class Builds extends React.Component {
+class Products extends React.Component {
   componentDidMount() {
     this.props.onMount()
   }
@@ -19,8 +19,8 @@ class Builds extends React.Component {
   render() {
     return (
       <div>
-        <h2>{'All Builds'}</h2>
-        <ul>{map(listBuild, this.props.builds)}</ul>
+        <h1>{'All Products'}</h1>
+        <ul>{map(listProduct, this.props.products)}</ul>
       </div>
     )
   }
@@ -34,4 +34,4 @@ const connector = connect(
     }
   }
 )
-export default connector(Builds)
+export default connector(Products)

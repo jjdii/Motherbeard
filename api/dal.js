@@ -1,4 +1,4 @@
-const { assoc, prop } = require('ramda')
+const { assoc, prop, toLower } = require('ramda')
 const pkGenerator = require('./lib/pk-generator')
 const { add, get, upd, del, all } = require('./lib/dal-couchdb')
 
@@ -12,7 +12,7 @@ const addProduct = doc =>
       '_id',
       pkGenerator('product_', prop('manufacturer-name', doc), '_') +
         '_' +
-        prop('sku', doc),
+        toLower(prop('sku', doc)),
       doc
     )
   )
