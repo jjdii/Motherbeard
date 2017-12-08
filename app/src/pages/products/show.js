@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { find, propEq, toLower } from 'ramda'
+import { find, propEq, toLower, prop } from 'ramda'
+import MenuAppBar from '../../components/app-bar'
 
 class ShowProduct extends React.Component {
   componentDidMount() {}
@@ -8,10 +9,9 @@ class ShowProduct extends React.Component {
     const productObj = find(propEq('_id', this.props.match.params.id))(
       this.props.products
     )
-    console.log(this.props.products)
     return (
       <div>
-        <h1>{'Product:'}</h1>
+        <MenuAppBar title={prop('name', productObj)} />
         {JSON.stringify(productObj)}
       </div>
     )

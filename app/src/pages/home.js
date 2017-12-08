@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import MenuAppBar from '../components/app-bar'
 
 class Home extends React.Component {
   componentDidMount() {}
   render() {
     return (
       <div>
-        <h2>{'Welcome to Motherbeard.com'}</h2>
+        <MenuAppBar title="Motherbeard" />
       </div>
     )
   }

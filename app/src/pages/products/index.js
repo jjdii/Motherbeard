@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { prop, map, find, propEq } from 'ramda'
+import MenuAppBar from '../../components/app-bar'
 
 const listProduct = product => (
   <li key={prop('_id', product)}>
@@ -19,7 +20,7 @@ class Products extends React.Component {
   render() {
     return (
       <div>
-        <h1>{'All Products'}</h1>
+        <MenuAppBar title="All Products" />
         <ul>{map(listProduct, this.props.products)}</ul>
       </div>
     )

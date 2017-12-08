@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { prop, map, find, propEq } from 'ramda'
+import MenuAppBar from '../../components/app-bar'
 
 const listBuildProducts = productId => <li key={productId}>{productId}</li>
 
@@ -22,7 +23,7 @@ class Builds extends React.Component {
   render() {
     return (
       <div>
-        <h1>{'All Builds'}</h1>
+        <MenuAppBar title="All Builds" />
         <ul>{map(listBuild, this.props.builds)}</ul>
       </div>
     )
