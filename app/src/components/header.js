@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import DrawerButton from './drawer'
 import LogoImg from '../images/logo-small.png'
 import NavImg from '../images/nav-button.png'
 import CartImg from '../images/cart.png'
@@ -21,15 +22,7 @@ const Header = props => {
           </div>
 
           <div id="nav-left-mobile" className="fleft">
-            <a className="fleft ease-in no-select" style={{ marginLeft: -24 }}>
-              <img
-                id="menu-button"
-                className="no-select"
-                src={NavImg}
-                draggable="false"
-              />
-              &nbsp;Menu
-            </a>
+            <DrawerButton buttonImg={NavImg} />
           </div>
           <div id="nav-left" className="fleft">
             <Link
@@ -41,6 +34,9 @@ const Header = props => {
             </Link>
             <Link to="/builds" className="fleft ease-in no-select">
               Builds
+            </Link>
+            <Link to="/" className="fleft ease-in no-select">
+              Create Build
             </Link>
           </div>
           <div id="nav-right" className="fright">
