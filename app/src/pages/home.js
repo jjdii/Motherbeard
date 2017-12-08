@@ -25,7 +25,7 @@ class Home extends React.Component {
               id="shop-button"
               className="ease-in orange-button"
             >
-              Browse Now
+              Get Started
             </Link>
           </div>
         </div>

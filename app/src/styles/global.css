@@ -545,7 +545,7 @@ h3 {
 #footer-payment,
 #footer-quick-links {
   margin: 28px 0px;
-  margin-left: 5%;
+  margin-left: 48px;
   /*margin-bottom: 39px;*/
   width: auto;
 }
@@ -650,7 +650,7 @@ h3 {
   #footer-support,
   #footer-payment,
   #footer-quick-links {
-    margin-left: 6%;
+    margin-left: 48px;
   }
   #footer-payment i {
     font-size: 21px !important;

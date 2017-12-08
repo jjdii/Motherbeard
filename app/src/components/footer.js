@@ -30,6 +30,9 @@ const Footer = props => {
               <Link to="/builds" className="ease-in footer-text">
                 Builds
               </Link>
+              <Link to="/templates/new" className="ease-in footer-text">
+                Create Build
+              </Link>
               <Link to="/search" className="ease-in footer-text">
                 Search
               </Link>
