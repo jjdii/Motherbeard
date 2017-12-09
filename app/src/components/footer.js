@@ -44,7 +44,7 @@ const Footer = props => {
           <a id="return" className="fright ease-in no-select">
             <i
               className="fa fa-arrow-up ease-in no-select"
-              style={{ fontSize: '18px', lineHeight: '30px' }}
+              style={{ fontSize: '16px', lineHeight: '26px' }}
             />
           </a>
         </div>
