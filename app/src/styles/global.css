@@ -204,10 +204,18 @@ color:#3a8fa6;
   /*text-shadow: 0px 3px 0px #f0f0f0;*/
   font-weight: 400;
 }
+
 #nav-left-mobile {
   display: none;
   width: auto;
 }
+/*#nav-left-mobile {
+  display: inline-block;
+  width: auto;
+}
+#nav-left {
+  display: none;
+}*/
 
 #nav-right img {
   display: inline-block;
