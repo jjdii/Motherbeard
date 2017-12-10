@@ -37,6 +37,13 @@ export default class DrawerButton extends React.Component {
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
         >
+          <div
+            style={{
+              width: '100%',
+              height: '105px',
+              borderBottom: '1px solid #d1d1d1'
+            }}
+          />
           <MenuItem
             onClick={() => {
               this.handleClose()
