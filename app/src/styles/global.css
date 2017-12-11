@@ -225,14 +225,16 @@ color:#3a8fa6;
   width: auto;
   vertical-align: top !important;
 }
-#menu-button {
+.menu-button {
   display: inline-block;
   opacity: 0.45;
   padding-left: 0px;
   padding: 0px;
   margin-right: 2px;
-  height: 12px;
   margin-top: 2px;
+  height: 12px;
+  width: 12px;
+
   vertical-align: top !important;
 }
 #search.selected {

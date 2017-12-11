@@ -6,6 +6,8 @@ import BuildsIcon from 'material-ui/svg-icons/action/build'
 import CreateBuildIcon from 'material-ui/svg-icons/content/create'
 import SearchIcon from 'material-ui/svg-icons/action/search'
 import CartIcon from 'material-ui/svg-icons/action/shopping-cart'
+import NavOpenImg from '../images/nav-button.png'
+import NavCloseImg from '../images/nav-close.png'
 import RaisedButton from 'material-ui/RaisedButton'
 import history from '../history'
 import { Link } from 'react-router-dom'
@@ -29,9 +31,8 @@ export default class DrawerButton extends React.Component {
           style={{ marginLeft: -24 }}
         >
           <img
-            id="menu-button"
-            className="no-select"
-            src={this.props.buttonImg}
+            className="menu-button no-select"
+            src={NavOpenImg}
             draggable="false"
           />
           &nbsp;Menu
@@ -50,7 +51,30 @@ export default class DrawerButton extends React.Component {
               borderBottom: '1px solid #d1d1d1',
               background: '#ffffff'
             }}
-          />
+          >
+            <div className="inner-content">
+              <div style={{ height: '55px' }}>
+                <img
+                  id="text-logo"
+                  className="fleft no-select"
+                  src={this.props.logo}
+                  draggable="false"
+                />
+              </div>
+              <a
+                onClick={this.handleToggle}
+                className="fleft ease-in no-select"
+                style={{ marginLeft: -24 }}
+              >
+                <img
+                  className="menu-button no-select"
+                  src={NavCloseImg}
+                  draggable="false"
+                />
+                &nbsp;Close
+              </a>
+            </div>
+          </div>
           <MenuItem
             onClick={() => {
               this.handleClose()
@@ -58,7 +82,7 @@ export default class DrawerButton extends React.Component {
             }}
             leftIcon={<HomeIcon />}
             style={{
-              background: '#ececec',
+              background: '#fafafa',
               borderBottom: '1px solid #d1d1d1'
             }}
           >
@@ -71,7 +95,7 @@ export default class DrawerButton extends React.Component {
             }}
             leftIcon={<BuildsIcon />}
             style={{
-              background: '#ececec',
+              background: '#fafafa',
               borderBottom: '1px solid #d1d1d1'
             }}
           >
@@ -84,7 +108,7 @@ export default class DrawerButton extends React.Component {
             }}
             leftIcon={<CreateBuildIcon />}
             style={{
-              background: '#ececec',
+              background: '#fafafa',
               borderBottom: '1px solid #d1d1d1'
             }}
           >
@@ -97,7 +121,7 @@ export default class DrawerButton extends React.Component {
             }}
             leftIcon={<SearchIcon />}
             style={{
-              background: '#ececec',
+              background: '#fafafa',
               borderBottom: '1px solid #d1d1d1'
             }}
           >
@@ -110,7 +134,7 @@ export default class DrawerButton extends React.Component {
             }}
             leftIcon={<CartIcon />}
             style={{
-              background: '#ececec',
+              background: '#fafafa',
               borderBottom: '1px solid #d1d1d1'
             }}
           >

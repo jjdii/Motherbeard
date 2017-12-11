@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import DrawerButton from './drawer'
 import LogoImg from '../images/logo-small.png'
-import NavImg from '../images/nav-button.png'
 import CartImg from '../images/cart.png'
 
 const Header = props => {
@@ -22,7 +21,7 @@ const Header = props => {
           </div>
 
           <div id="nav-left-mobile" className="fleft">
-            <DrawerButton buttonImg={NavImg} />
+            <DrawerButton logo={LogoImg} />
           </div>
           <div id="nav-left" className="fleft">
             <Link
