@@ -4,14 +4,17 @@ import { connect } from 'react-redux'
 import { prop, map, find, propEq } from 'ramda'
 import Header from '../../components/header'
 
-const listBuildProducts = productId => <li key={productId}>{productId}</li>
+const listBuildProducts = products => productId => {
+  const productObj = find(propEq('_id', productId))(products)
+  return <li key={productId}>{prop('name', productObj)}</li>
+}
 
-const listBuild = build => (
+const listBuild = products => build => (
   <li key={prop('_id', build)}>
     <Link to={`/builds/${prop('_id', build)}`}>
       <h2>{prop('name', build)}</h2>
     </Link>
-    <ul>{map(listBuildProducts, build.products)}</ul>
+    <ul>{map(listBuildProducts(products), build.products)}</ul>
   </li>
 )
 
@@ -24,7 +27,7 @@ class Builds extends React.Component {
     return (
       <div>
         <Header title="All Builds" />
-        <ul>{map(listBuild, this.props.builds)}</ul>
+        <ul>{map(listBuild(this.props.products), this.props.builds)}</ul>
       </div>
     )
   }

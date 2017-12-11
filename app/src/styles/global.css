@@ -715,8 +715,8 @@ h3 {
   #footer {
     padding-bottom: 26px;
   }
-}
-@media screen and (max-width: 600px) {
+  /*}
+@media screen and (max-width: 600px) {*/
   h1#banner-title {
     margin-top: 170px;
   }

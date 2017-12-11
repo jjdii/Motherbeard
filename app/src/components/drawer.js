@@ -142,7 +142,7 @@ export default class DrawerButton extends React.Component {
             <span
               style={{
                 position: 'relative',
-                top: '-1px',
+                top: '-2px',
                 fontSize: '80%',
                 lineHeight: 'inherit'
               }}
