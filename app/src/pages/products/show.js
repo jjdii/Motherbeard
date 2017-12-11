@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { find, propEq, toLower, prop } from 'ramda'
 import Header from '../../components/header'
+import Footer from '../../components/footer'
 
 class ShowProduct extends React.Component {
   componentDidMount() {}
@@ -12,7 +13,8 @@ class ShowProduct extends React.Component {
     return (
       <div>
         <Header title={prop('name', productObj)} />
-        {JSON.stringify(productObj)}
+        <p>{JSON.stringify(productObj)}</p>
+        <Footer />
       </div>
     )
   }

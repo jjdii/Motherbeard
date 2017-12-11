@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { find, propEq, prop } from 'ramda'
 import Header from '../../components/header'
+import Footer from '../../components/footer'
 
 class ShowBuild extends React.Component {
   componentDidMount() {}
@@ -12,7 +13,8 @@ class ShowBuild extends React.Component {
     return (
       <div>
         <Header title={prop('name', buildObj)} />
-        {JSON.stringify(buildObj)}
+        <p>{JSON.stringify(buildObj)}</p>
+        <Footer />
       </div>
     )
   }

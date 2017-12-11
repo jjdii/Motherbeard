@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { prop, map, find, propEq } from 'ramda'
 import Header from '../../components/header'
+import Footer from '../../components/footer'
 
 const listBuildProducts = products => productId => {
   const productObj = find(propEq('_id', productId))(products)
@@ -28,6 +29,7 @@ class Builds extends React.Component {
       <div>
         <Header title="All Builds" />
         <ul>{map(listBuild(this.props.products), this.props.builds)}</ul>
+        <Footer />
       </div>
     )
   }
