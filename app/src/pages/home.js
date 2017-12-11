@@ -1,10 +1,65 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { prop, map, find, propEq } from 'ramda'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import BannerImg from '../images/motherboard-bg.png'
 import PlaceholderImg from '../images/placeholder.jpeg'
+const numeral = require('numeral')
+
+const listBuildProducts = products => productId => {
+  const productObj = find(propEq('_id', productId))(products)
+  return (
+    <div>
+      <i
+        className="fa fa-caret-right"
+        style={{
+          fontSize: '10px',
+          position: 'absolute',
+          marginTop: '4px'
+        }}
+      />
+      <p className="product-list-item">{prop('name', productObj)}</p>
+    </div>
+  )
+}
+
+const listBuild = products => build => {
+  return (
+    <div>
+      <div className="product-item" style={{ marginLeft: 0 }}>
+        <Link to={`/builds/${prop('_id', build)}`}>
+          <img className="product-img" src={PlaceholderImg} draggable="false" />
+        </Link>
+        <p className="product-price">
+          $<b>{Math.floor(prop('price', build))}</b>
+          <span className="decimal">
+            {numeral(prop('price', build)).format('.00')}
+          </span>
+        </p>
+        <Link
+          to={`/builds/${prop('_id', build)}`}
+          className="product-link ease-in"
+        >
+          {prop('name', build)}
+        </Link>
+        <div className="clear" />
+        <div className="full-content pli-wrap">
+          {map(listBuildProducts(products), build.products)}
+        </div>
+        <div className="full-content vpd-wrap" align="center">
+          <Link
+            to={`/builds/${prop('_id', build)}`}
+            className="grey-button ease-in"
+          >
+            View Details
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 class Home extends React.Component {
   componentDidMount() {}
@@ -33,68 +88,7 @@ class Home extends React.Component {
         <div id="featured-products" className="outer-content">
           <div id="featured-products-inner" className="inner-content">
             <h2>Latest Builds</h2>
-            <div className="product-item" style={{ marginLeft: 0 }}>
-              <a href="products/1/">
-                <img
-                  className="product-img"
-                  src={PlaceholderImg}
-                  draggable="false"
-                />
-              </a>
-              <p className="product-price">
-                $<b>303</b>
-                <span className="decimal">.99</span>
-              </p>
-              <a href="products/1/" className="product-link ease-in">
-                Budget Home & Office AMD Desktop Kit
-              </a>
-              <div className="clear" />
-              <div className="full-content pli-wrap">
-                <i
-                  className="fa fa-caret-right"
-                  style={{
-                    fontSize: '10px',
-                    position: 'absolute',
-                    marginTop: '4px'
-                  }}
-                />
-                <p className="product-list-item">
-                  AMD A6 3.6GHz Dual-Core Processor
-                </p>
-                <i
-                  className="fa fa-caret-right"
-                  style={{
-                    fontSize: '10px',
-                    position: 'absolute',
-                    marginTop: '4px'
-                  }}
-                />
-                <p className="product-list-item">G.Skill 8GB Memory</p>
-                <i
-                  className="fa fa-caret-right"
-                  style={{
-                    fontSize: '10px',
-                    position: 'absolute',
-                    marginTop: '4px'
-                  }}
-                />
-                <p className="product-list-item">Seagate 1TB Hard Drive</p>
-                <i
-                  className="fa fa-caret-right"
-                  style={{
-                    fontSize: '10px',
-                    position: 'absolute',
-                    marginTop: '4px'
-                  }}
-                />
-                <p className="product-list-item">Cooler Master Mini Tower</p>
-              </div>
-              <div className="full-content vpd-wrap" align="center">
-                <a href="products/1/" className="grey-button ease-in">
-                  View Details
-                </a>
-              </div>
-            </div>\
+            {map(listBuild(this.props.products), this.props.builds)}
           </div>
         </div>
 
