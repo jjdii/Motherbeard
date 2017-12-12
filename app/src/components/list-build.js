@@ -29,7 +29,7 @@ export const listBuild = products => build => {
           <img className="product-img" src={PlaceholderImg} draggable="false" />
         </Link>
         <p className="product-price">
-          $<b>{Math.floor(prop('price', build))}</b>
+          $<b>{Math.floor(Number(prop('price', build)))}</b>
           <span className="decimal">
             {numeral(prop('price', build)).format('.00')}
           </span>
