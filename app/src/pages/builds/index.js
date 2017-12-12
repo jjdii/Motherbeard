@@ -4,20 +4,7 @@ import { connect } from 'react-redux'
 import { prop, map, find, propEq } from 'ramda'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
-
-const listBuildProducts = products => productId => {
-  const productObj = find(propEq('_id', productId))(products)
-  return <li key={productId}>{prop('name', productObj)}</li>
-}
-
-const listBuild = products => build => (
-  <li key={prop('_id', build)}>
-    <Link to={`/builds/${prop('_id', build)}`}>
-      <h2>{prop('name', build)}</h2>
-    </Link>
-    <ul>{map(listBuildProducts(products), build.products)}</ul>
-  </li>
-)
+import { listBuild, listBuildProducts } from '../../components/list-build'
 
 class Builds extends React.Component {
   componentDidMount() {
@@ -28,7 +15,13 @@ class Builds extends React.Component {
     return (
       <div>
         <Header title="All Builds" />
-        <ul>{map(listBuild(this.props.products), this.props.builds)}</ul>
+
+        <div id="featured-products" className="outer-content">
+          <div id="featured-products-inner" className="inner-content">
+            {map(listBuild(this.props.products), this.props.builds)}
+          </div>
+        </div>
+
         <Footer />
       </div>
     )

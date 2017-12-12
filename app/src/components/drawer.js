@@ -82,7 +82,6 @@ export default class DrawerButton extends React.Component {
             }}
             leftIcon={<HomeIcon />}
             style={{
-              background: '#fafafa',
               borderBottom: '1px solid #d1d1d1'
             }}
           >
@@ -95,7 +94,6 @@ export default class DrawerButton extends React.Component {
             }}
             leftIcon={<BuildsIcon />}
             style={{
-              background: '#fafafa',
               borderBottom: '1px solid #d1d1d1'
             }}
           >
@@ -108,7 +106,6 @@ export default class DrawerButton extends React.Component {
             }}
             leftIcon={<CreateBuildIcon />}
             style={{
-              background: '#fafafa',
               borderBottom: '1px solid #d1d1d1'
             }}
           >
@@ -121,7 +118,6 @@ export default class DrawerButton extends React.Component {
             }}
             leftIcon={<SearchIcon />}
             style={{
-              background: '#fafafa',
               borderBottom: '1px solid #d1d1d1'
             }}
           >
@@ -134,7 +130,6 @@ export default class DrawerButton extends React.Component {
             }}
             leftIcon={<CartIcon />}
             style={{
-              background: '#fafafa',
               borderBottom: '1px solid #d1d1d1'
             }}
           >
