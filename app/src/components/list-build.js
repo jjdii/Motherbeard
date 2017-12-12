@@ -5,7 +5,7 @@ import PlaceholderImg from '../images/placeholder.jpeg'
 const numeral = require('numeral')
 
 export const listBuildProducts = products => productId => {
-  const productObj = find(propEq('_id', productId))(products)
+  const productObj = find(propEq('_id', prop('_id', productId)))(products)
   return (
     <div>
       <i

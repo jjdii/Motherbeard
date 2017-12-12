@@ -41,7 +41,8 @@ const {
   trim,
   concat,
   toLower,
-  map
+  map,
+  isNil
 } = require('ramda')
 const port = process.env.PORT || 5000
 const neweggUrl = process.env.NEWEGG_URL
@@ -110,7 +111,7 @@ app.post('/newegg/builds', async (req, res, next) => {
       result.forEach(products => {
         const parsedProducts = JSON.parse(products)
         const totalRecords = path(['results', 'total-matched'], parsedProducts)
-        console.log(totalRecords)
+        console.log('request ' + i + ':', totalRecords)
         let productsArr = prop('products', parsedProducts)
         const searchFor = split(
           ' ',
@@ -202,7 +203,15 @@ app.post('/newegg/builds', async (req, res, next) => {
               trim(product['manufacturer-name']) + '_' + trim(product['sku']),
               '_'
             )
-            return buildArr.push(_id)
+            return buildArr.push({
+              _id,
+              type: pathOr(
+                null,
+                ['body', 'build', buildArr.length, 'name'],
+                req
+              ),
+              price: product['sale-price']
+            })
           }
         })
 
@@ -212,7 +221,11 @@ app.post('/newegg/builds', async (req, res, next) => {
         // }
 
         if (productFound === 0) {
-          buildArr.push(null)
+          buildArr.push({
+            _id: null,
+            type: pathOr(null, ['body', 'build', buildArr.length, 'name'], req),
+            price: null
+          })
         }
 
         i++
@@ -223,7 +236,13 @@ app.post('/newegg/builds', async (req, res, next) => {
         name: pathOr('', ['body', 'name'], req),
         templateId: pathOr('', ['body', '_id'], req),
         products: buildArr,
-        type: 'build'
+        type: 'build',
+        price: reduce(
+          (a, v) =>
+            !isNil(prop('price', v)) ? a + parseFloat(prop('price', v)) : a,
+          0.0,
+          buildArr
+        )
       }
 
       addBuild(omit(['_id', '_rev'], buildObj))
