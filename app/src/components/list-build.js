@@ -7,7 +7,7 @@ const numeral = require('numeral')
 export const listBuildProducts = products => productId => {
   const productObj = find(propEq('_id', prop('_id', productId)))(products)
   return (
-    <div>
+    <div key={prop('type', productId)}>
       <i
         className="fa fa-caret-right"
         style={{
@@ -23,10 +23,15 @@ export const listBuildProducts = products => productId => {
 
 export const listBuild = products => build => {
   return (
-    <div>
+    <div key={prop('_id', build)}>
       <div className="product-item" style={{ marginLeft: 0 }}>
         <Link to={`/builds/${prop('_id', build)}`}>
-          <img className="product-img" src={PlaceholderImg} draggable="false" />
+          <img
+            className="product-img"
+            src={PlaceholderImg}
+            alt={prop('name', build)}
+            draggable="false"
+          />
         </Link>
         <p className="product-price">
           $<b>{Math.floor(Number(prop('price', build)))}</b>

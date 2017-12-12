@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { prop, map, find, propEq } from 'ramda'
+import { map } from 'ramda'
 import Header from '../components/header'
 import Footer from '../components/footer'
-import { listBuild, listBuildProducts } from '../components/list-build'
+import { listBuild } from '../components/list-build'
 import BannerImg from '../images/motherboard-bg.png'
 
 class Home extends React.Component {

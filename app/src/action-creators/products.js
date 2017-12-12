@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { SET_PRODUCTS, SET_CURRENT_PRODUCT } from '../constants'
-import { isEmpty, assoc } from 'ramda'
-import history from '../history'
+//import history from '../history'
 const url = 'http://localhost:5000'
 
 export const setProducts = async (dispatch, getState) => {

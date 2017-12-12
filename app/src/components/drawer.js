@@ -8,9 +8,7 @@ import SearchIcon from 'material-ui/svg-icons/action/search'
 import CartIcon from 'material-ui/svg-icons/action/shopping-cart'
 import NavOpenImg from '../images/nav-button.png'
 import NavCloseImg from '../images/nav-close.png'
-import RaisedButton from 'material-ui/RaisedButton'
 import history from '../history'
-import { Link } from 'react-router-dom'
 
 export default class DrawerButton extends React.Component {
   constructor(props) {
@@ -33,6 +31,7 @@ export default class DrawerButton extends React.Component {
           <img
             className="menu-button no-select"
             src={NavOpenImg}
+            alt="open menu"
             draggable="false"
           />
           &nbsp;Menu
@@ -58,6 +57,7 @@ export default class DrawerButton extends React.Component {
                   id="text-logo"
                   className="fleft no-select"
                   src={this.props.logo}
+                  alt="motherbeard logo"
                   draggable="false"
                 />
               </div>
@@ -69,6 +69,7 @@ export default class DrawerButton extends React.Component {
                 <img
                   className="menu-button no-select"
                   src={NavCloseImg}
+                  alt="close menu"
                   draggable="false"
                 />
                 &nbsp;Close

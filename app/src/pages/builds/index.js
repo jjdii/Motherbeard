@@ -1,10 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { prop, map, find, propEq } from 'ramda'
+import { map } from 'ramda'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
-import { listBuild, listBuildProducts } from '../../components/list-build'
+import { listBuild } from '../../components/list-build'
 
 class Builds extends React.Component {
   componentDidMount() {

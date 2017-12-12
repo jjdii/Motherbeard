@@ -15,6 +15,7 @@ const Header = props => {
                 id="text-logo"
                 className="fleft no-select"
                 src={LogoImg}
+                alt="motherbeard logo"
                 draggable="false"
               />
             </Link>
@@ -46,7 +47,12 @@ const Header = props => {
               style={{ paddingRight: 0 }}
             >
               Cart&nbsp;
-              <img className="no-select" src={CartImg} draggable="false" />
+              <img
+                className="no-select"
+                src={CartImg}
+                alt="shopping cart"
+                draggable="false"
+              />
               &nbsp;<span id="cart-num">(0)</span>
             </Link>
           </div>

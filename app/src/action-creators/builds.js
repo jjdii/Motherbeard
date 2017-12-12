@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { SET_BUILDS, SET_CURRENT_BUILD } from '../constants'
-import { isEmpty, assoc } from 'ramda'
-import history from '../history'
+//import history from '../history'
 const url = 'http://localhost:5000'
 
 export const setBuilds = async (dispatch, getState) => {

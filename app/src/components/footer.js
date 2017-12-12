@@ -9,7 +9,12 @@ const Footer = props => {
         <div className="inner-content">
           <span id="mobile-footer">
             <div id="footer-desc" className="fleft">
-              <img id="mb-foot-title" src={LogoImg} draggable="false" />
+              <img
+                id="mb-foot-title"
+                src={LogoImg}
+                alt="small motherbeard logo"
+                draggable="false"
+              />
               <p className="footer-text" style={{ marginTop: 6 }}>
                 <i
                   className="payments fa fa-envelope-square"

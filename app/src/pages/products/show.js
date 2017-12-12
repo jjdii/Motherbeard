@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { find, propEq, toLower, prop } from 'ramda'
+import { find, propEq, prop } from 'ramda'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 

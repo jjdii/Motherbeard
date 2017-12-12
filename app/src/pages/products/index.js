@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { prop, map, find, propEq } from 'ramda'
+import { prop, map } from 'ramda'
 import Header from '../../components/header'
 
 const listProduct = product => (
