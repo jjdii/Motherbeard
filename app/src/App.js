@@ -9,20 +9,23 @@ import history from './history'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import customTheme from './theme.js'
+import ScrollToTop from './ScrollToTop'
 
 const App = props => {
   return (
     <MuiThemeProvider muiTheme={getMuiTheme(customTheme)}>
       <Router history={history}>
-        <div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/builds/:id" component={ShowBuild} />
-            <Route path="/builds" component={Builds} />
-            <Route path="/products/:id" component={ShowProduct} />
-            <Route path="/products" component={Products} />
-          </Switch>
-        </div>
+        <ScrollToTop>
+          <div>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/builds/:id" component={ShowBuild} />
+              <Route path="/builds" component={Builds} />
+              <Route path="/products/:id" component={ShowProduct} />
+              <Route path="/products" component={Products} />
+            </Switch>
+          </div>
+        </ScrollToTop>
       </Router>
     </MuiThemeProvider>
   )
