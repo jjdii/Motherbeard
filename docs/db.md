@@ -31,7 +31,7 @@ Created by users or admins via the template form. Used to establish specificatio
 ```
 {
   "_id": "template_low_budget_desktop",
-  "_rev": "2a01uie2d598f5df2cb36eda50198cd105",
+  "_rev": "2-a01uie2d598f5df2cb36eda50198cd105",
   "name": "Low Budget Desktop",
   "build": [
     {
@@ -92,6 +92,11 @@ A list of `product`(s) created from a series of newegg API calls per the given `
       "type": "motherboard",
       "price": "74.99"
     },
+    {
+      "_id": "product_intel_9SIA1K66641140",
+      "type": "processor",
+      "price": "91.90"
+    },
     ...
   ],
   "type": "build",
@@ -101,6 +106,54 @@ A list of `product`(s) created from a series of newegg API calls per the given `
 
 ## Default products
 Reliable `product`(s) to be used in case no viable products were found when calling the newegg API.
+```
+{
+  "_id": "default_products",
+  "_rev": "1-18a7e2d598f5df2cb36eda50198cd105",
+  "products": [
+    {
+      "type": "motherboard",
+      "_id": "product_gigabyte_9SIABVR6D44128",
+      "upc": "889523002414"
+    },
+    {
+      "type": "processor",
+      "_id": "product_intel_9SIA1K66641140",
+      "upc": "735858329620"
+    },
+    {
+      "type": "memory",
+      "_id": "product_g.skill_N82E16820231963",
+      "upc": "848354016496"
+    },
+    {
+      "type": "storage",
+      "_id": "product_seagate_9SIA85V5NR7804",
+      "upc": "763649117835"
+    },
+    {
+      "type": "case",
+      "_id": "product_cooler_master_N82E16811119274",
+      "upc": "884102021862"
+    },
+    {
+      "type": "power supply",
+      "_id": "product_seasonic_usa_N82E16817151086",
+      "upc": "882016000713"
+    },
+    {
+      "type": "network adapter",
+      "_id": "product_tp-link_9SIA85V3E25190",
+      "upc": "845973050603"
+    },
+    {
+      "type": "optical drive",
+      "_id": "product_lite-on_N82E16827106276",
+      "upc": "4718390002387"
+    }
+  ]
+}
+```
 
 ##### Motherboard
   - id: `product_gigabyte_9SIABVR6D44128`
@@ -126,7 +179,7 @@ Reliable `product`(s) to be used in case no viable products were found when call
   - id: `product_seasonic_usa_N82E16817151086`
   - upc: `882016000713`
 
-##### Wireless Card
+##### Network Adapter
   - id: `product_tp-link_9SIA85V3E25190`
   - upc: `845973050603`
 

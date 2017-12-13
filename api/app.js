@@ -55,7 +55,7 @@ const neweggUrl = process.env.NEWEGG_URL
 app.use(cors({ credentials: true }))
 app.use(bodyParser.json())
 
-app.get('/', (req, res, next) => res.send('Welcome to the Motherbeard api'))
+app.get('/', (req, res, next) => res.send('Welcome to the Motherbeard API'))
 
 //////////////////////
 // Newegg Endpoints //
@@ -75,7 +75,7 @@ app.get('/newegg/products', async (req, res, next) => {
       keywords
     )}&currency=USD&sort-by=sale-price&records-per-page=${recordsPerPage}&low-sale-price=${lowPrice}&high-sale-price=${highPrice}`
   } else {
-    url = `${neweggUrl}&currency=USD&sort-by=sale-price&records-per-page=${recordsPerPage}&upc=${upc}`
+    url = `${neweggUrl}&upc=${upc}&currency=USD&sort-by=sale-price&records-per-page=${recordsPerPage}`
   }
 
   fetchNewegg(url)
@@ -115,7 +115,7 @@ app.post('/newegg/builds', async (req, res, next) => {
         // keywordStr = `&keywords=+${name}+${compose(join('+'), split(' '), trim)(
         //   keywords
         // )}`
-        keywordStr = `&keywords=${name}`
+        keywordStr = `&keywords=${name} ${keywords}`
       }
 
       return acc.concat(
@@ -149,7 +149,7 @@ app.post('/newegg/builds', async (req, res, next) => {
         )
 
         productFound = 0
-        pageNumber = 1
+        //pageNumber = 1
 
         // while (
         //   productFound === 0 &&
@@ -213,7 +213,7 @@ app.post('/newegg/builds', async (req, res, next) => {
             searchFor
           )
 
-          if (searchHits >= searchFor.length - 1) {
+          if (searchHits >= searchFor.length) {
             productFound += searchHits
 
             const productObj = compose(
@@ -266,14 +266,12 @@ app.post('/newegg/builds', async (req, res, next) => {
         templateId: pathOr('', ['body', '_id'], req),
         products: buildArr,
         type: 'build',
-        price: JSON.stringify(
-          reduce(
-            (a, v) =>
-              !isNil(prop('price', v)) ? a + parseFloat(prop('price', v)) : a,
-            0.0,
-            buildArr
-          )
-        )
+        price: reduce(
+          (a, v) =>
+            !isNil(prop('price', v)) ? a + parseFloat(prop('price', v)) : a,
+          0.0,
+          buildArr
+        ).toString()
       }
 
       addBuild(omit(['_id', '_rev'], buildObj))
