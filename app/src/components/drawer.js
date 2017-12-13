@@ -76,76 +76,78 @@ export default class DrawerButton extends React.Component {
               </a>
             </div>
           </div>
-          <MenuItem
-            onClick={() => {
-              this.handleClose()
-              history.push('/')
-            }}
-            leftIcon={<HomeIcon />}
-            style={{
-              borderBottom: '1px solid #d1d1d1'
-            }}
-          >
-            Home
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              this.handleClose()
-              history.push('/builds')
-            }}
-            leftIcon={<BuildsIcon />}
-            style={{
-              borderBottom: '1px solid #d1d1d1'
-            }}
-          >
-            Builds
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              this.handleClose()
-              history.push('/templates/new')
-            }}
-            leftIcon={<CreateBuildIcon />}
-            style={{
-              borderBottom: '1px solid #d1d1d1'
-            }}
-          >
-            Create Build
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              this.handleClose()
-              history.push('/search')
-            }}
-            leftIcon={<SearchIcon />}
-            style={{
-              borderBottom: '1px solid #d1d1d1'
-            }}
-          >
-            Search
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              this.handleClose()
-              history.push('/cart')
-            }}
-            leftIcon={<CartIcon />}
-            style={{
-              borderBottom: '1px solid #d1d1d1'
-            }}
-          >
-            Cart&nbsp;
-            <span
+          <div style={{ background: '#f3f3f3' }}>
+            <MenuItem
+              onClick={() => {
+                this.handleClose()
+                history.push('/')
+              }}
+              leftIcon={<HomeIcon />}
               style={{
-                position: 'relative',
-                top: '-2px',
-                fontSize: '80%',
-                lineHeight: 'inherit'
+                borderBottom: '1px solid #d1d1d1'
               }}
             >
-              (0)
-            </span>
-          </MenuItem>
+              Home
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                this.handleClose()
+                history.push('/builds')
+              }}
+              leftIcon={<BuildsIcon />}
+              style={{
+                borderBottom: '1px solid #d1d1d1'
+              }}
+            >
+              Builds
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                this.handleClose()
+                history.push('/templates/new')
+              }}
+              leftIcon={<CreateBuildIcon />}
+              style={{
+                borderBottom: '1px solid #d1d1d1'
+              }}
+            >
+              Create Build
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                this.handleClose()
+                history.push('/search')
+              }}
+              leftIcon={<SearchIcon />}
+              style={{
+                borderBottom: '1px solid #d1d1d1'
+              }}
+            >
+              Search
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                this.handleClose()
+                history.push('/cart')
+              }}
+              leftIcon={<CartIcon />}
+              style={{
+                borderBottom: '1px solid #d1d1d1'
+              }}
+            >
+              Cart&nbsp;
+              <span
+                style={{
+                  position: 'relative',
+                  top: '-2px',
+                  fontSize: '80%',
+                  lineHeight: 'inherit'
+                }}
+              >
+                (0)
+              </span>
+            </MenuItem>
+          </div>
         </Drawer>
       </div>
     )
