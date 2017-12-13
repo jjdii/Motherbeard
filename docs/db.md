@@ -1,6 +1,6 @@
-# Motherbeard Database Objects
+# Motherbeard Database Objects Reference
 
-## product
+## Product object
 Returned from fetches to the newegg API. A `build` contains an array of these.
 
 ```
@@ -25,7 +25,7 @@ Returned from fetches to the newegg API. A `build` contains an array of these.
 }
 ```
 
-## template
+## Template object
 Created by users or admins via the template form. Used to establish specifications when generating a `build`.
 
 ```
@@ -77,7 +77,7 @@ Created by users or admins via the template form. Used to establish specificatio
 }
 ```
 
-## build
+## Build object
 A list of `product` ids created from a series of newegg API calls per the given `template`'s specfications.
 
 ```
@@ -87,9 +87,47 @@ A list of `product` ids created from a series of newegg API calls per the given 
   "name": "Low Budget Desktop",
   "templateId": "template_low_budget_desktop"
   "products": [
-    "product_lenovo_9SIAE485VU6750",
+    {"_id": "product_lenovo_9SIAE485VU6750",
+    "type": "motherboard",
+    "price": "74.99"},
     ...
   ],
-  "type": "build"
+  "type": "build",
+  "price": "412.88"
 }
 ```
+
+## Default products
+Reliable products to be used in case no viable products were found when calling the newegg API.
+
+##### Motherboard
+  - id: `product_gigabyte_9SIABVR6D44128`
+  - upc: `889523002414`
+
+##### Processor
+  - id: `product_intel_9SIA1K66641140`
+  - upc: `735858329620`
+
+##### Memory
+  - id: `product_g.skill_N82E16820231963`
+  - upc: `848354016496`
+
+##### Storage
+  - id: `product_seagate_9SIA85V5NR7804`
+  - upc: `763649117835`
+
+##### Case
+  - id: `product_cooler_master_N82E16811119274`
+  - upc: `884102021862`
+
+##### Power Supply
+  - id: `product_seasonic_usa_N82E16817151086`
+  - upc: `882016000713`
+
+##### Wireless Card
+  - id: `product_tp-link_9SIA85V3E25190`
+  - upc: `845973050603`
+
+##### Optical Drive
+  - id: `product_lite-on_N82E16827106276`
+  - upc: `4718390002387`
