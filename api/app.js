@@ -42,7 +42,8 @@ const {
   concat,
   toLower,
   map,
-  isNil
+  isNil,
+  head
 } = require('ramda')
 const port = process.env.PORT || 5000
 const neweggUrl = process.env.NEWEGG_URL
@@ -61,15 +62,41 @@ app.get('/', (req, res, next) => res.send('Welcome to the Motherbeard api'))
 //////////////////////
 
 app.get('/newegg/products', async (req, res, next) => {
-  const keywords = encodeURIComponent(propOr('', 'keywords', req.query))
-  const recordsPerPage = propOr('10', 'count', req.query)
+  const keywords = propOr('', 'keywords', req.query)
+  const upc = propOr('', 'upc', req.query)
+  const recordsPerPage = propOr('1000', 'count', req.query)
   const lowPrice = propOr('5', 'low', req.query)
-  const highPrice = propOr('10000', 'high', req.query)
-  const url = `${neweggUrl}&keywords=${keywords}&currency=USD&sort-by=sale-price&records-per-page=${recordsPerPage}&low-sale-price=${lowPrice}&high-sale-price=${highPrice}`
+  const highPrice = propOr('1000', 'high', req.query)
+  const toDB = propOr('', 'db', req.query)
+  let url = ''
+
+  if (isEmpty(upc)) {
+    url = `${neweggUrl}&keywords=${encodeURIComponent(
+      keywords
+    )}&currency=USD&sort-by=sale-price&records-per-page=${recordsPerPage}&low-sale-price=${lowPrice}&high-sale-price=${highPrice}`
+  } else {
+    url = `${neweggUrl}&currency=USD&sort-by=sale-price&records-per-page=${recordsPerPage}&upc=${upc}`
+  }
 
   fetchNewegg(url)
-    .then(result => res.status(200).send(result))
-    .catch(err => res.status(500).send('Error fetching Newegg API'))
+    .then(result => {
+      if (not(isEmpty(toDB))) {
+        const productObj = compose(
+          omit(['_id', '_rev']),
+          merge(__, { type: 'product' }),
+          head,
+          prop('products')
+        )(JSON.parse(result))
+
+        addProduct(productObj)
+          .then(result =>
+            console.log('build product added', prop('id', result))
+          )
+          .catch(err => console.log('err: adding build product', err))
+      }
+      res.status(200).send(result)
+    })
+    .catch(err => res.status(500).send('Error fetching Newegg API: ' + err))
 })
 
 app.post('/newegg/builds', async (req, res, next) => {
@@ -195,7 +222,9 @@ app.post('/newegg/builds', async (req, res, next) => {
             )(product)
 
             addProduct(productObj)
-              .then(result => console.log('build product added'))
+              .then(result =>
+                console.log('build product added', prop('id', result))
+              )
               .catch(err => console.log('err: adding build product', err))
 
             let _id = pkGenerator(
@@ -237,23 +266,25 @@ app.post('/newegg/builds', async (req, res, next) => {
         templateId: pathOr('', ['body', '_id'], req),
         products: buildArr,
         type: 'build',
-        price: reduce(
-          (a, v) =>
-            !isNil(prop('price', v)) ? a + parseFloat(prop('price', v)) : a,
-          0.0,
-          buildArr
+        price: JSON.stringify(
+          reduce(
+            (a, v) =>
+              !isNil(prop('price', v)) ? a + parseFloat(prop('price', v)) : a,
+            0.0,
+            buildArr
+          )
         )
       }
 
       addBuild(omit(['_id', '_rev'], buildObj))
-        .then(result => console.log('build added'))
+        .then(result => console.log('build added', prop('id', result)))
         .catch(err => console.log('err: adding build', err))
 
       res.status(200).send(buildObj)
     })
     .catch(err => {
       console.log(err)
-      res.status(500).send('Error fetching Newegg API')
+      res.status(500).send('Error fetching Newegg API: ' + err)
     })
 })
 

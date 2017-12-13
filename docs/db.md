@@ -78,7 +78,7 @@ Created by users or admins via the template form. Used to establish specificatio
 ```
 
 ## Build object
-A list of `product` ids created from a series of newegg API calls per the given `template`'s specfications.
+A list of `product`(s) created from a series of newegg API calls per the given `template`'s specfications.
 
 ```
 {
@@ -87,9 +87,11 @@ A list of `product` ids created from a series of newegg API calls per the given 
   "name": "Low Budget Desktop",
   "templateId": "template_low_budget_desktop"
   "products": [
-    {"_id": "product_lenovo_9SIAE485VU6750",
-    "type": "motherboard",
-    "price": "74.99"},
+    {
+      "_id": "product_lenovo_9SIAE485VU6750",
+      "type": "motherboard",
+      "price": "74.99"
+    },
     ...
   ],
   "type": "build",
@@ -98,7 +100,7 @@ A list of `product` ids created from a series of newegg API calls per the given 
 ```
 
 ## Default products
-Reliable products to be used in case no viable products were found when calling the newegg API.
+Reliable `product`(s) to be used in case no viable products were found when calling the newegg API.
 
 ##### Motherboard
   - id: `product_gigabyte_9SIABVR6D44128`
