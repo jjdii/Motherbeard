@@ -10,7 +10,8 @@ import {
   pathOr,
   compose,
   filter,
-  contains
+  contains,
+  slice
 } from 'ramda'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
@@ -157,6 +158,18 @@ class ShowBuild extends React.Component {
       productIdArr
     )
     //console.log('productsArr', productsArr)
+    const leftProductsArr = slice(
+      0,
+      Math.ceil(productsArr.length / 2),
+      productsArr
+    )
+    //console.log('leftProductsArr', leftProductsArr)
+    const rightProductsArr = slice(
+      Math.ceil(productsArr.length / 2),
+      Infinity,
+      productsArr
+    )
+    //console.log('rightProductsArr', rightProductsArr)
 
     let caseImgUrl = ''
     productsArr.forEach(prod => {
@@ -164,7 +177,6 @@ class ShowBuild extends React.Component {
         return (caseImgUrl = propOr('', 'image-url', prod))
       }
     })
-    //console.log('caseImgUrl', caseImgUrl)
 
     if (
       path(['props', 'match', 'params', 'id'], this) === prop('_id', buildObj)
@@ -236,7 +248,10 @@ class ShowBuild extends React.Component {
 
             <div id="specs-inner" className="inner-content">
               <div className="half-content" style={{ marginLeft: 0 }}>
-                {map(listBuildProductLong, productsArr)}
+                {map(listBuildProductLong, leftProductsArr)}
+              </div>
+              <div className="half-content">
+                {map(listBuildProductLong, rightProductsArr)}
               </div>
             </div>
           </div>
