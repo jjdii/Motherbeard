@@ -20,7 +20,8 @@ const {
   getBuild,
   updateBuild,
   deleteBuild,
-  listDocs
+  listDocs,
+  getDefaultProducts
 } = require('./dal')
 const {
   propOr,
@@ -43,7 +44,9 @@ const {
   toLower,
   map,
   isNil,
-  head
+  head,
+  find,
+  assoc
 } = require('ramda')
 const port = process.env.PORT || 5000
 const neweggUrl = process.env.NEWEGG_URL
@@ -112,10 +115,7 @@ app.post('/newegg/builds', async (req, res, next) => {
 
       let keywordStr = ''
       if (not(isEmpty(name)) && not(isEmpty(keywords))) {
-        // keywordStr = `&keywords=+${name}+${compose(join('+'), split(' '), trim)(
-        //   keywords
-        // )}`
-        keywordStr = `&keywords=${name} ${keywords}`
+        keywordStr = `&keywords=+${name} +${keywords}`
       }
 
       return acc.concat(
@@ -129,8 +129,6 @@ app.post('/newegg/builds', async (req, res, next) => {
 
   Promise.all(promiseArr)
     .then(result => {
-      //res.status(200).send(result)
-
       let buildArr = []
       let productFound = 0
       let pageNumber = 1
@@ -216,7 +214,7 @@ app.post('/newegg/builds', async (req, res, next) => {
           if (searchHits >= searchFor.length) {
             productFound += searchHits
 
-            const productObj = compose(
+            let productObj = compose(
               omit(['_id', '_rev']),
               merge(__, { type: 'product' })
             )(product)
@@ -260,25 +258,147 @@ app.post('/newegg/builds', async (req, res, next) => {
         i++
       })
 
-      const buildObj = {
-        _id: pkGenerator('build_', pathOr('', ['body', 'name'], req), '_'),
-        name: pathOr('', ['body', 'name'], req),
-        templateId: pathOr('', ['body', '_id'], req),
-        products: buildArr,
-        type: 'build',
-        price: reduce(
-          (a, v) =>
-            !isNil(prop('price', v)) ? a + parseFloat(prop('price', v)) : a,
-          0.0,
-          buildArr
-        ).toString()
+      const nullCount = reduce(
+        (a, v) => (isNil(prop('_id', v)) ? a + 1 : a),
+        0,
+        buildArr
+      )
+
+      if (nullCount > 0) {
+        getDefaultProducts()
+          .then(result => {
+            const defaultProducts = prop('products', result)
+
+            let promArr = reduce(
+              (acc, val) => {
+                if (isNil(prop('_id', val))) {
+                  let productUPC = compose(
+                    prop('upc'),
+                    v => find(propEq('type', v), defaultProducts),
+                    prop('type')
+                  )(val)
+                  console.log('in promArr upc is', productUPC)
+                  return acc.concat(fetchNewegg(`${url}&upc=${productUPC}`))
+                }
+              },
+              [],
+              buildArr
+            )
+
+            Promise.all(promArr)
+              .then(resArr => {
+                i = 0
+
+                const productsArr = map(
+                  v =>
+                    compose(
+                      p =>
+                        assoc(
+                          '_id',
+                          pkGenerator(
+                            'product_',
+                            prop('manufacturer-name', p) + '_' + prop('sku', p),
+                            '_'
+                          ),
+                          p
+                        ),
+                      path(['products', 0])
+                    )(JSON.parse(v)),
+                  resArr
+                )
+
+                const newBuildArr = map(
+                  v =>
+                    isNil(prop('_id', v))
+                      ? {
+                          _id: productsArr[i]['_id'],
+                          type: v['type'],
+                          price: productsArr[i++]['sale-price']
+                        }
+                      : v,
+                  buildArr
+                )
+                // console.log('buildArr', buildArr)
+                // console.log('newBuildArr', newBuildArr)
+
+                let buildObj = {
+                  name: pathOr('', ['body', 'name'], req),
+                  templateId: pkGenerator(
+                    'template_',
+                    path(['body', 'name'], req),
+                    '_'
+                  ),
+                  products: newBuildArr,
+                  type: 'build',
+                  price: reduce(
+                    (a, v) =>
+                      !isNil(prop('price', v))
+                        ? a + parseFloat(prop('price', v))
+                        : a,
+                    0.0,
+                    newBuildArr
+                  ).toString()
+                }
+
+                addBuild(buildObj)
+                  .then(result =>
+                    console.log('build added', prop('id', result))
+                  )
+                  .catch(err => console.log('err: adding build', err))
+
+                let templateObj = compose(
+                  omit(['_id', '_rev']),
+                  merge(__, { type: 'template' }),
+                  prop('body')
+                )(req)
+
+                addTemplate(templateObj)
+                  .then(result =>
+                    console.log('template added', prop('id', result))
+                  )
+                  .catch(err => console.log('err: adding template', err))
+
+                res.status(200).send(buildObj)
+              })
+              .catch(err =>
+                console.log('err: getting default product prices', err)
+              )
+          })
+          .catch(err => console.log('err: getting default products', err))
+      } else {
+        let buildObj = {
+          name: pathOr('', ['body', 'name'], req),
+          templateId: pkGenerator(
+            'template_',
+            path(['body', 'name'], req),
+            '_'
+          ),
+          products: buildArr,
+          type: 'build',
+          price: reduce(
+            (a, v) =>
+              !isNil(prop('price', v)) ? a + parseFloat(prop('price', v)) : a,
+            0.0,
+            buildArr
+          ).toString()
+        }
+
+        addBuild(buildObj)
+          .then(result => console.log('build added', prop('id', result)))
+          .catch(err => console.log('err: adding build', err))
+
+        let templateObj = compose(
+          omit(['_id', '_rev']),
+          merge(__, { type: 'template' }),
+          prop('body')
+        )(req)
+
+        addTemplate(templateObj)
+          .then(result => console.log('template added', prop('id', result)))
+          .catch(err => console.log('err: adding template', err))
+
+        res.status(200).send(buildObj)
       }
-
-      addBuild(omit(['_id', '_rev'], buildObj))
-        .then(result => console.log('build added', prop('id', result)))
-        .catch(err => console.log('err: adding build', err))
-
-      res.status(200).send(buildObj)
     })
     .catch(err => {
       console.log(err)

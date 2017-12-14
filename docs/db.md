@@ -104,7 +104,7 @@ A list of `product`(s) created from a series of newegg API calls per the given `
 }
 ```
 
-## Default products
+## Default products object
 Reliable `product`(s) to be used in case no viable products were found when calling the newegg API.
 ```
 {
@@ -154,35 +154,3 @@ Reliable `product`(s) to be used in case no viable products were found when call
   ]
 }
 ```
-
-##### Motherboard
-  - id: `product_gigabyte_9SIABVR6D44128`
-  - upc: `889523002414`
-
-##### Processor
-  - id: `product_intel_9SIA1K66641140`
-  - upc: `735858329620`
-
-##### Memory
-  - id: `product_g.skill_N82E16820231963`
-  - upc: `848354016496`
-
-##### Storage
-  - id: `product_seagate_9SIA85V5NR7804`
-  - upc: `763649117835`
-
-##### Case
-  - id: `product_cooler_master_N82E16811119274`
-  - upc: `884102021862`
-
-##### Power Supply
-  - id: `product_seasonic_usa_N82E16817151086`
-  - upc: `882016000713`
-
-##### Network Adapter
-  - id: `product_tp-link_9SIA85V3E25190`
-  - upc: `845973050603`
-
-##### Optical Drive
-  - id: `product_lite-on_N82E16827106276`
-  - upc: `4718390002387`

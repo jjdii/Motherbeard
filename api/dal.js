@@ -40,11 +40,12 @@ const getBuild = id => get(id)
 const updateBuild = doc => upd(doc)
 const deleteBuild = id => del(id)
 
-/////////////////////
-// Mango Functions //
-/////////////////////
+////////////////////
+// Misc Functions //
+////////////////////
 
 const listDocs = opts => all(opts)
+const getDefaultProducts = () => get('default_products')
 
 module.exports = {
   addProduct,
@@ -59,5 +60,6 @@ module.exports = {
   getBuild,
   updateBuild,
   deleteBuild,
-  listDocs
+  listDocs,
+  getDefaultProducts
 }
