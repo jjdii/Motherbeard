@@ -52,7 +52,7 @@ export default class DrawerButton extends React.Component {
             }}
           >
             <div className="inner-content">
-              <div style={{ height: '55px' }}>
+              <div style={{ height: '60px' }}>
                 <img
                   id="text-logo"
                   className="fleft no-select"

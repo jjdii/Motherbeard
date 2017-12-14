@@ -358,7 +358,7 @@ class ShowBuild extends React.Component {
     } else {
       return (
         <div>
-          <h2>LOADING...</h2>
+          <h2 style={{ marginTop: '38%' }}>LOADING...</h2>
         </div>
       )
     }

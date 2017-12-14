@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import DrawerButton from './drawer'
-import LogoImg from '../images/logo-small.png'
+import LogoImg from '../images/logo-small-black.png'
 import CartImg from '../images/cart.png'
 
 const Header = props => {

@@ -167,7 +167,7 @@ color:#3a8fa6;
   display: none;
 }
 #logo {
-  height: 55px;
+  height: 60px;
   display: block;
 }
 #logo img {
@@ -180,8 +180,8 @@ color:#3a8fa6;
   opacity: 0.7;
 }
 #text-logo {
-  height: 16px;
-  margin-top: 30px;
+  height: 36px;
+  margin-top: 18px;
   margin-left: 0px;
   opacity: 0.8;
 }
@@ -196,7 +196,7 @@ color:#3a8fa6;
   height: 16px;
   line-height: 16px;
   font-size: 16px;
-  margin-top: 4px;
+  /*margin-top: 4px;*/
   color: #222;
   text-decoration: none;
   padding: 8px 24px;
