@@ -50,7 +50,7 @@ h3 {
 }
 
 #product-display {
-  margin-top: 66px;
+  margin-top: 56px;
 }
 #product-display,
 #product-display-inner,
@@ -132,7 +132,7 @@ p.product-list-item a:hover {
 }
 
 #add-to-cart {
-  margin-top: 30px;
+  margin-top: 24px;
   min-height: 36px;
 }
 #in-cart {
@@ -427,9 +427,9 @@ h2#toolkit-head {
     display: block;
     margin-left: 0;
   }
-  #product-display {
-    margin-top: 62px;
-  }
+  /*#product-display {
+    margin-top: 56px;
+  }*/
   #product-imgs,
   #product-info {
     width: 100%;
@@ -453,7 +453,7 @@ h2#toolkit-head {
 }
 @media screen and (max-width: 600px) {
   #product-display {
-    margin-top: 54px;
+    margin-top: 45px;
   }
   #product-imgs {
     width: 90%;
