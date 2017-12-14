@@ -47,11 +47,7 @@ const Footer = props => {
               </Link>
             </div>
           </span>
-          <Scrollchor
-            to="header"
-            id="return"
-            className="fright ease-in no-select"
-          >
+          <Scrollchor to="top" id="return" className="fright ease-in no-select">
             <i
               className="fa fa-arrow-up ease-in no-select"
               style={{ fontSize: '16px', lineHeight: '26px' }}

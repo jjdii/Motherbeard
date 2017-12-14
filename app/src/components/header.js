@@ -6,7 +6,7 @@ import CartImg from '../images/cart.png'
 
 const Header = props => {
   return (
-    <header>
+    <header id="top">
       <div id="header" className="outer-content">
         <div className="inner-content">
           <div id="logo" className="full-content">
