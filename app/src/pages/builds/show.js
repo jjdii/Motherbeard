@@ -1,9 +1,63 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { find, propEq, prop, propOr, map, path } from 'ramda'
+import {
+  find,
+  propEq,
+  prop,
+  propOr,
+  map,
+  path,
+  pathOr,
+  compose,
+  filter,
+  contains
+} from 'ramda'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 import '../../styles/build.css'
+import LinkIcon from '../../images/link.png'
+import PDFIcon from '../../images/pdf.png'
+import VideoIcon from '../../images/video.png'
+const numeral = require('numeral')
+
+const listBuildProductImg = product => {
+  if (
+    contains(prop('category', product), [
+      'processor',
+      'memory',
+      'storage',
+      'video card'
+    ])
+  )
+    return (
+      <img
+        className="quarter-content product-thumb no-select fleft"
+        src={propOr('', 'image-url', product)}
+        alt={propOr('', 'name', product)}
+        draggable="false"
+      />
+    )
+}
+
+const listBuildProductInfo = product => {
+  if (
+    contains(prop('category', product), [
+      'processor',
+      'memory',
+      'storage',
+      'video card',
+      'case'
+    ])
+  )
+    return (
+      <img
+        className="quarter-content product-thumb no-select fleft"
+        src={propOr('', 'image-url', product)}
+        alt={propOr('', 'name', product)}
+        draggable="false"
+      />
+    )
+}
 
 class ShowBuild extends React.Component {
   componentDidMount() {}
@@ -12,14 +66,22 @@ class ShowBuild extends React.Component {
       find(propEq('_id', path(['props', 'match', 'params', 'id'], this)))(
         path(['props', 'builds'], this)
       ) || []
-    //console.log('buildObj', buildObj)
+
     const productIdArr = map(prop('_id'), propOr([], 'products', buildObj))
-    //console.log('productIdArr', productIdArr)
+
     const productsArr = map(
-      id => find(propEq('_id', id), path(['props', 'products'], this)),
+      id => find(propEq('_id', id), pathOr([], ['props', 'products'], this)),
       productIdArr
     )
-    console.log('productsArr', productsArr)
+    //console.log('productsArr', productsArr)
+
+    let caseImgUrl = ''
+    productsArr.forEach(prod => {
+      if (propOr('', 'category', prod).toString() === 'case') {
+        return (caseImgUrl = propOr('', 'image-url', prod))
+      }
+    })
+    //console.log('caseImgUrl', caseImgUrl)
 
     if (
       path(['props', 'match', 'params', 'id'], this) === prop('_id', buildObj)
@@ -34,44 +96,22 @@ class ShowBuild extends React.Component {
                 <img
                   id="main-product-img"
                   className="no-select"
-                  src="../../img/products/product-3-intel.png"
+                  src={caseImgUrl || ''}
                   data-action="zoom"
                   draggable="false"
                 />
                 <div className="full-content" style={{ display: 'table' }}>
-                  <img
-                    className="quarter-content product-thumb no-select fleft"
-                    style={{ marginLeft: 0 }}
-                    src="../../img/products/gskill-trident-z.png"
-                    alt="G.Skill Ripjaws V Series Memory"
-                    draggable="false"
-                  />
-                  <img
-                    className="quarter-content product-thumb no-select fleft"
-                    src="../../img/products/xfx-gpu.png"
-                    alt="XFX XXX OC Video Card"
-                    draggable="false"
-                  />
-                  <img
-                    className="quarter-content product-thumb no-select fleft"
-                    src="../../img/products/ocz-ssd.png"
-                    alt="OCZ Trion Solid State Drive"
-                    draggable="false"
-                  />
-                  <img
-                    className="quarter-content product-thumb no-select fleft"
-                    src="../../img/products/seagate-hd.png"
-                    alt="Seagate Barracuda Hard Drive"
-                    draggable="false"
-                  />
+                  {map(listBuildProductImg, productsArr)}
                 </div>
               </div>
               <div id="product-info" className="fleft">
-                <p className="product-title">Ultimate Intel Desktop Kit</p>
+                <p className="product-title">{prop('name', buildObj)}</p>
 
                 <p className="product-price">
-                  $<b>1167</b>
-                  <span className="decimal">.38</span>
+                  $<b>{Math.floor(Number(prop('price', buildObj)))}</b>
+                  <span className="decimal">
+                    {numeral(prop('price', buildObj)).format('.00')}
+                  </span>
                 </p>
 
                 <div className="full-content pli-wrap">
@@ -169,19 +209,6 @@ class ShowBuild extends React.Component {
                 </div>
 
                 <div className="clear" />
-
-                <div id="more-info-titles">
-                  <h3 id="mit-1" className="ease-in no-select selected">
-                    Description
-                  </h3>
-                </div>
-                <p id="mi-1" className="product-text">
-                  This budget build really packs a punch - it can handle HD
-                  gaming, video editing and much more with ease. The Cooler
-                  Master case and Gigabyte motherboard provide plenty of room
-                  for expansion. All parts come in original packaging,
-                  unassembled.
-                </p>
               </div>
             </div>
           </div>
@@ -563,7 +590,7 @@ class ShowBuild extends React.Component {
                   <div className="toolkit-img-wrap fleft">
                     <img
                       className="toolkit-img no-select"
-                      src="../../img/link.png"
+                      src={LinkIcon}
                       alt="link"
                       draggable="false"
                     />
@@ -589,7 +616,7 @@ class ShowBuild extends React.Component {
                   <div className="toolkit-img-wrap fleft">
                     <img
                       className="toolkit-img no-select"
-                      src="../../img/video.png"
+                      src={VideoIcon}
                       alt="video"
                       draggable="false"
                     />
@@ -616,7 +643,7 @@ class ShowBuild extends React.Component {
                   <div className="toolkit-img-wrap fleft">
                     <img
                       className="toolkit-img no-select"
-                      src="../../img/pdf.png"
+                      src={PDFIcon}
                       alt="pdf file"
                       draggable="false"
                     />

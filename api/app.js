@@ -218,7 +218,10 @@ app.post('/newegg/builds', async (req, res, next) => {
 
             let productObj = compose(
               omit(['_id', '_rev']),
-              merge(__, { type: 'product' })
+              merge(__, {
+                type: 'product',
+                category: path(['body', 'build', i, 'name'], req)
+              })
             )(product)
 
             addProduct(productObj)
@@ -310,8 +313,6 @@ app.post('/newegg/builds', async (req, res, next) => {
 
             Promise.all(promArr)
               .then(resArr => {
-                i = 0
-
                 const productsArr = map(
                   v =>
                     compose(
@@ -330,9 +331,22 @@ app.post('/newegg/builds', async (req, res, next) => {
                   resArr
                 )
 
+                i = 0
                 productsArr.forEach(prod => {
+                  const category = prop(
+                    'type',
+                    find(
+                      i =>
+                        toLower(prop('_id', i)) == toLower(prop('_id', prod)),
+                      defaultProducts
+                    )
+                  )
+                  console.log('category', category)
                   const defaultProductObj = compose(
-                    merge(__, { type: 'product' })
+                    merge(__, {
+                      type: 'product',
+                      category
+                    })
                   )(prod)
 
                   updateProduct(defaultProductObj)
@@ -344,6 +358,7 @@ app.post('/newegg/builds', async (req, res, next) => {
                     )
                 })
 
+                i = 0
                 const newBuildArr = map(
                   v =>
                     isNil(prop('_id', v))
