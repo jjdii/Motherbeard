@@ -307,6 +307,20 @@ app.post('/newegg/builds', async (req, res, next) => {
                   resArr
                 )
 
+                productsArr.forEach(prod => {
+                  const defaultProductObj = compose(
+                    merge(__, { type: 'product' })
+                  )(prod)
+
+                  updateProduct(defaultProductObj)
+                    .then(result =>
+                      console.log('default product updated', prop('id', result))
+                    )
+                    .catch(err =>
+                      console.log('err: updating default product', err)
+                    )
+                })
+
                 const newBuildArr = map(
                   v =>
                     isNil(prop('_id', v))

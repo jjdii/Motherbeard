@@ -109,7 +109,7 @@ Reliable `product`(s) to be used in case no viable products were found when call
 ```
 {
   "_id": "default_products",
-  "_rev": "1-18a7e2d598f5df2cb36eda50198cd105",
+  "_rev": "2-51c0a8280c588789ca00788b805a37f5",
   "products": [
     {
       "type": "motherboard",
@@ -125,6 +125,11 @@ Reliable `product`(s) to be used in case no viable products were found when call
       "type": "memory",
       "_id": "product_g.skill_N82E16820231963",
       "upc": "848354016496"
+    },
+    {
+      "type": "video card",
+      "_id": "product_xfx_9SIA98C6DK4218",
+      "upc": "778656057319"
     },
     {
       "type": "storage",
