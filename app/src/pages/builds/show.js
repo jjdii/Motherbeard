@@ -18,6 +18,16 @@ import '../../styles/build.css'
 import LinkIcon from '../../images/link.png'
 import PDFIcon from '../../images/pdf.png'
 import VideoIcon from '../../images/video.png'
+import processorIcon from '../../images/cpu_icon_small.png'
+import coolerIcon from '../../images/cooler_icon_small.png'
+import motherboardIcon from '../../images/motherboard_icon_invert_small.png'
+import memoryIcon from '../../images/memory_icon_invert_small.png'
+import storageIcon from '../../images/storage_icon_small.png'
+import videoCardIcon from '../../images/gpu_icon_small.png'
+import caseIcon from '../../images/case_icon_small.png'
+import powerSupplyIcon from '../../images/power_supply_icon_small.png'
+import networkIcon from '../../images/network_icon_small.png'
+import opticalDriveIcon from '../../images/optical_icon_small.png'
 const numeral = require('numeral')
 
 const listBuildProductImg = product => {
@@ -39,7 +49,7 @@ const listBuildProductImg = product => {
     )
 }
 
-const listBuildProductInfo = product => {
+const listBuildProductShort = product => {
   if (
     contains(prop('category', product), [
       'processor',
@@ -50,13 +60,86 @@ const listBuildProductInfo = product => {
     ])
   )
     return (
-      <img
-        className="quarter-content product-thumb no-select fleft"
-        src={propOr('', 'image-url', product)}
-        alt={propOr('', 'name', product)}
-        draggable="false"
-      />
+      <div>
+        <i
+          className="fa fa-caret-right"
+          style={{
+            fontSize: '10px',
+            position: 'absolute',
+            marginTop: '4px'
+          }}
+        />
+        <p className="product-list-item">{propOr('', 'name', product)}</p>
+      </div>
     )
+}
+
+const listBuildProductLong = product => {
+  const category = propOr('', 'category', product)
+  let iconImg
+
+  switch (category) {
+    case 'processor':
+      iconImg = processorIcon
+      break
+    case 'cooler':
+      iconImg = coolerIcon
+      break
+    case 'motherboard':
+      iconImg = motherboardIcon
+      break
+    case 'memory':
+      iconImg = memoryIcon
+      break
+    case 'storage':
+      iconImg = storageIcon
+      break
+    case 'video card':
+      iconImg = videoCardIcon
+      break
+    case 'case':
+      iconImg = caseIcon
+      break
+    case 'power supply':
+      iconImg = powerSupplyIcon
+      break
+    case 'network':
+      iconImg = networkIcon
+      break
+    case 'optical drive':
+      iconImg = opticalDriveIcon
+      break
+    default:
+      break
+  }
+
+  return (
+    <div>
+      <h3 className="specs-title">
+        <img
+          className="specs-icon no-select"
+          src={iconImg}
+          alt={category}
+          draggable="false"
+        />
+        {category.charAt(0).toUpperCase() + category.slice(1)}
+      </h3>
+      <p className="product-text">
+        <span className="half-content" style={{ marginLeft: 0 }}>
+          Manufacturer
+        </span>
+        <span className="half-content">
+          {propOr('', 'manufacturer-name', product)}
+        </span>
+      </p>
+      <p className="product-text">
+        <span className="half-content" style={{ marginLeft: 0 }}>
+          Name
+        </span>
+        <span className="half-content">{propOr('', 'name', product)}</span>
+      </p>
+    </div>
+  )
 }
 
 class ShowBuild extends React.Component {
@@ -115,72 +198,7 @@ class ShowBuild extends React.Component {
                 </p>
 
                 <div className="full-content pli-wrap">
-                  <i
-                    className="fa fa-caret-right"
-                    style={{
-                      fontSize: '10px',
-                      position: 'absolute',
-                      marginTop: '4px'
-                    }}
-                  />
-                  <p className="product-list-item">
-                    Intel i7-6700K 4.0GHz Quad-Core Processor
-                  </p>
-                  <i
-                    className="fa fa-caret-right"
-                    style={{
-                      fontSize: '10px',
-                      position: 'absolute',
-                      marginTop: '4px'
-                    }}
-                  />
-                  <p className="product-list-item">
-                    G.Skill Trident Z 32GB (2 x 16GB) Memory
-                  </p>
-                  <i
-                    className="fa fa-caret-right"
-                    style={{
-                      fontSize: '10px',
-                      position: 'absolute',
-                      marginTop: '4px'
-                    }}
-                  />
-                  <p className="product-list-item">
-                    XFX Radeon RX 480 8GB Graphics
-                  </p>
-                  <i
-                    className="fa fa-caret-right"
-                    style={{
-                      fontSize: '10px',
-                      position: 'absolute',
-                      marginTop: '4px'
-                    }}
-                  />
-                  <p className="product-list-item">
-                    OCZ Trion 480GB Solid State Drive
-                  </p>
-                  <i
-                    className="fa fa-caret-right"
-                    style={{
-                      fontSize: '10px',
-                      position: 'absolute',
-                      marginTop: '4px'
-                    }}
-                  />
-                  <p className="product-list-item">
-                    Seagate Barracuda 2TB Hard Drive
-                  </p>
-                  <i
-                    className="fa fa-caret-right"
-                    style={{
-                      fontSize: '10px',
-                      position: 'absolute',
-                      marginTop: '4px'
-                    }}
-                  />
-                  <p className="product-list-item">
-                    Phanteks Enthoo Full Tower
-                  </p>
+                  {map(listBuildProductShort, productsArr)}
                 </div>
 
                 <div id="add-to-cart">
@@ -218,365 +236,7 @@ class ShowBuild extends React.Component {
 
             <div id="specs-inner" className="inner-content">
               <div className="half-content" style={{ marginLeft: 0 }}>
-                <h3 className="specs-title">
-                  <img
-                    className="specs-icon no-select"
-                    src="../../img/cpu_icon_small.png"
-                    alt=""
-                    draggable="false"
-                  />Processor
-                </h3>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Brand Name
-                  </span>
-                  <span className="half-content">Intel Core i7-6700K</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Speed
-                  </span>
-                  <span className="half-content">4.0GHz</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Cores
-                  </span>
-                  <span className="half-content">4</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Socket
-                  </span>
-                  <span className="half-content">LGA1151</span>
-                </p>
-
-                <h3 className="specs-title">
-                  <img
-                    className="specs-icon no-select"
-                    src="../../img/cooler_icon_small.png"
-                    alt=""
-                    draggable="false"
-                  />CPU Cooler
-                </h3>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Brand Name
-                  </span>
-                  <span className="half-content">
-                    Cooler Master Hyper 212 EVO
-                  </span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Type
-                  </span>
-                  <span className="half-content">Sleeve Bearing</span>
-                </p>
-
-                <h3 className="specs-title">
-                  <img
-                    className="specs-icon no-select"
-                    src="../../img/motherboard_icon_invert_small.png"
-                    alt=""
-                    draggable="false"
-                  />Motherboard
-                </h3>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Brand Name
-                  </span>
-                  <span className="half-content">ASRock Z170</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Socket
-                  </span>
-                  <span className="half-content">LGA1151</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Memory Slots
-                  </span>
-                  <span className="half-content">4 x 288-pin DIMM</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Memory Type
-                  </span>
-                  <span className="half-content">
-                    DDR4-2133 / 2400 / 2800 / 2933 / 3200
-                  </span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Max Memory
-                  </span>
-                  <span className="half-content">64GB</span>
-                </p>
-
-                <h3 className="specs-title">
-                  <img
-                    id="specs-mem"
-                    className="specs-icon no-select"
-                    style={{ opacity: 0.6 }}
-                    src="../../img/memory_icon_invert_small.png"
-                    alt=""
-                    draggable="false"
-                  />Memory
-                </h3>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Brand Name
-                  </span>
-                  <span className="half-content">G.Skill Trident Z</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Size
-                  </span>
-                  <span className="half-content">32GB (2 x 16GB)</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Speed
-                  </span>
-                  <span className="half-content">DDR4-3200</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Type
-                  </span>
-                  <span className="half-content">288-pin DIMM</span>
-                </p>
-
-                <h3 className="specs-title">
-                  <img
-                    className="specs-icon no-select"
-                    src="../../img/storage_icon_small.png"
-                    alt=""
-                    draggable="false"
-                  />Storage #1
-                </h3>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Brand Name
-                  </span>
-                  <span className="half-content">OCZ Trion 150 SSD</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Size
-                  </span>
-                  <span className="half-content">480GB</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Type
-                  </span>
-                  <span className="half-content">{`2.5" Internal Drive`}</span>
-                </p>
-
-                <h3 className="specs-title">
-                  <img
-                    className="specs-icon no-select"
-                    src="../../img/storage_icon_small.png"
-                    alt=""
-                    draggable="false"
-                  />Storage #2
-                </h3>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Brand Name
-                  </span>
-                  <span className="half-content">Seagate Barracuda</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Size
-                  </span>
-                  <span className="half-content">2TB</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Speed
-                  </span>
-                  <span className="half-content">7200RPM</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Type
-                  </span>
-                  <span className="half-content">{`3.5" Internal Drive`}</span>
-                </p>
-              </div>
-              <div className="half-content">
-                <h3 className="specs-title">
-                  <img
-                    className="specs-icon no-select"
-                    src="../../img/gpu_icon_small.png"
-                    alt=""
-                    draggable="false"
-                  />Video Card
-                </h3>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Brand Name
-                  </span>
-                  <span className="half-content">XFX</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Chipset
-                  </span>
-                  <span className="half-content">Radeon RX 480</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Size
-                  </span>
-                  <span className="half-content">8GB</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Crossfire Capable
-                  </span>
-                  <span className="half-content">Yes</span>
-                </p>
-
-                <h3 className="specs-title">
-                  <img
-                    id="specs-case"
-                    className="specs-icon no-select"
-                    style={{ opacity: 0.55 }}
-                    src="../../img/case_icon_small.png"
-                    alt=""
-                    draggable="false"
-                  />Case
-                </h3>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Brand Name
-                  </span>
-                  <span className="half-content">Phanteks Enthoo Pro</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Type
-                  </span>
-                  <span className="half-content">ATX Full Tower</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Dimensions
-                  </span>
-                  <span className="half-content">{`21.02" x 9.21" x 21.61"`}</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    {`External 5.25" Bays`}
-                  </span>
-                  <span className="half-content">3</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    {`Internal 2.5" Bays`}
-                  </span>
-                  <span className="half-content">1</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    {`Internal 3.5" Bays`}
-                  </span>
-                  <span className="half-content">6</span>
-                </p>
-
-                <h3 className="specs-title">
-                  <img
-                    id="specs-psu"
-                    className="specs-icon no-select"
-                    src="../../img/power_supply_icon_small.png"
-                    alt=""
-                    draggable="false"
-                  />Power Supply
-                </h3>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Brand Name
-                  </span>
-                  <span className="half-content">SeaSonic</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Wattage
-                  </span>
-                  <span className="half-content">520 Watts</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Efficiency
-                  </span>
-                  <span className="half-content">80+ Bronze Certified</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Type
-                  </span>
-                  <span className="half-content">Fully-Modular ATX</span>
-                </p>
-
-                <h3 className="specs-title">
-                  <img
-                    className="specs-icon no-select"
-                    src="../../img/network_icon_small.png"
-                    draggable="false"
-                  />Network
-                </h3>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Brand Name
-                  </span>
-                  <span className="half-content">TP-Link Wifi</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Protocols
-                  </span>
-                  <span className="half-content">802.11a/b/g/n</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Interface
-                  </span>
-                  <span className="half-content">PCI-Express x1</span>
-                </p>
-
-                <h3 className="specs-title">
-                  <img
-                    className="specs-icon no-select"
-                    style={{ opacity: 0.6 }}
-                    src="../../img/optical_icon_small.png"
-                    draggable="false"
-                  />Optical Drive
-                </h3>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Brand Name
-                  </span>
-                  <span className="half-content">LG DVD/CD Writer</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Type
-                  </span>
-                  <span className="half-content">{`5.25" External Drive`}</span>
-                </p>
-                <p className="product-text">
-                  <span className="half-content" style={{ marginLeft: 0 }}>
-                    Interface
-                  </span>
-                  <span className="half-content">SATA 3 Gb/s</span>
-                </p>
+                {map(listBuildProductLong, productsArr)}
               </div>
             </div>
           </div>
