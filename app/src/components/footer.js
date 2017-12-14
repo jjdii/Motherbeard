@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import LogoImg from '../images/logo-tiny.png'
+import Scrollchor from 'react-scrollchor'
 
 const Footer = props => {
   return (
@@ -46,12 +47,16 @@ const Footer = props => {
               </Link>
             </div>
           </span>
-          <a id="return" className="fright ease-in no-select">
+          <Scrollchor
+            to="header"
+            id="return"
+            className="fright ease-in no-select"
+          >
             <i
               className="fa fa-arrow-up ease-in no-select"
               style={{ fontSize: '16px', lineHeight: '26px' }}
             />
-          </a>
+          </Scrollchor>
         </div>
       </div>
 
