@@ -76,7 +76,7 @@ export default class DrawerButton extends React.Component {
               </a>
             </div>
           </div>
-          <div style={{ background: '#f3f3f3' }}>
+          <div style={{ background: '#f8f8f8' }}>
             <MenuItem
               onClick={() => {
                 this.handleClose()
@@ -139,7 +139,7 @@ export default class DrawerButton extends React.Component {
               <span
                 style={{
                   position: 'relative',
-                  top: '-2px',
+                  top: '-1px',
                   fontSize: '80%',
                   lineHeight: 'inherit'
                 }}

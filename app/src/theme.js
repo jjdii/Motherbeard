@@ -13,6 +13,7 @@ import {
 } from 'material-ui/styles/colors'
 
 export default {
+  fontFamily: 'Lato, sans-serif',
   palette: {
     primary1Color: blueGrey50,
     primary2Color: cyan700,
