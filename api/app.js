@@ -46,10 +46,12 @@ const {
   isNil,
   head,
   find,
-  assoc
+  assoc,
+  difference
 } = require('ramda')
 const port = process.env.PORT || 5000
 const neweggUrl = process.env.NEWEGG_URL
+const numeral = require('numeral')
 
 ////////////////
 // Middleware //
@@ -237,7 +239,7 @@ app.post('/newegg/builds', async (req, res, next) => {
                 ['body', 'build', buildArr.length, 'name'],
                 req
               ),
-              price: product['sale-price']
+              price: numeral(product['sale-price']).format('0,0.00')
             })
           }
         })
@@ -256,6 +258,27 @@ app.post('/newegg/builds', async (req, res, next) => {
         }
 
         i++
+      })
+
+      const requiredTypes = [
+        'motherboard',
+        'processor',
+        'memory',
+        'storage',
+        'case',
+        'power supply'
+      ]
+      const missingTypes = compose(
+        difference(requiredTypes),
+        map(prop('type'))
+      )(buildArr)
+
+      missingTypes.forEach(type => {
+        buildArr.push({
+          _id: null,
+          type,
+          price: null
+        })
       })
 
       const nullCount = reduce(
@@ -327,7 +350,9 @@ app.post('/newegg/builds', async (req, res, next) => {
                       ? {
                           _id: productsArr[i]['_id'],
                           type: v['type'],
-                          price: productsArr[i++]['sale-price']
+                          price: numeral(productsArr[i++]['sale-price']).format(
+                            '0,0.00'
+                          )
                         }
                       : v,
                   buildArr
@@ -344,14 +369,18 @@ app.post('/newegg/builds', async (req, res, next) => {
                   ),
                   products: newBuildArr,
                   type: 'build',
-                  price: reduce(
-                    (a, v) =>
-                      !isNil(prop('price', v))
-                        ? a + parseFloat(prop('price', v))
-                        : a,
-                    0.0,
-                    newBuildArr
-                  ).toString()
+                  price: numeral(
+                    reduce(
+                      (a, v) =>
+                        !isNil(prop('price', v))
+                          ? a + parseFloat(prop('price', v))
+                          : a,
+                      0.0,
+                      newBuildArr
+                    )
+                  )
+                    .format('0,0.00')
+                    .toString()
                 }
 
                 addBuild(buildObj)
@@ -389,12 +418,16 @@ app.post('/newegg/builds', async (req, res, next) => {
           ),
           products: buildArr,
           type: 'build',
-          price: reduce(
-            (a, v) =>
-              !isNil(prop('price', v)) ? a + parseFloat(prop('price', v)) : a,
-            0.0,
-            buildArr
-          ).toString()
+          price: numeral(
+            reduce(
+              (a, v) =>
+                !isNil(prop('price', v)) ? a + parseFloat(prop('price', v)) : a,
+              0.0,
+              buildArr
+            )
+          )
+            .format('0,0.00')
+            .toString()
         }
 
         addBuild(buildObj)

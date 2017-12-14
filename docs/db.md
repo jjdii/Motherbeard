@@ -30,49 +30,48 @@ Created by users or admins via the template form. Used to establish specificatio
 
 ```
 {
-  "_id": "template_low_budget_desktop",
+  "_id": "template_cheap_windows_desktop",
   "_rev": "2-a01uie2d598f5df2cb36eda50198cd105",
-  "name": "Low Budget Desktop",
-  "build": [
-    {
-      "name": "motherboard",
-      "keywords": "32gb",
-      "maxMemory": "32gb",
-      "low": "40",
-      "high": "300"
-    },
-    {
-      "name": "processor",
-      "keywords": "2.8ghz dual",
-      "socket": "fm2",
-      "speed": "2.8ghz",
-      "cores": "2",
-      "low": "40",
-      "high": "300"
-    },
-    {
-      "name": "memory",
-      "keywords": "16gb",
-      "size": "16gb",
-      "low": "20",
-      "high": "300"
-    },
-    {
-      "name": "storage",
-      "keywords": "256gb ssd",
-      "size": "256gb",
-      "type": "ssd",
-      "low": "20",
-      "high": "300"
-    },
-    {
-      "name": "video card",
-      "keywords": "2gb",
-      "size": "2gb",
-      "low": "40",
-      "high": "300"
-    }
-  ],
+  {
+    "name": "Cheap Windows Desktop",
+    "build": [
+      {
+        "name": "motherboard",
+        "keywords": "64gb intel",
+        "maxMemory": "64gb",
+        "low": "40",
+        "high": "150"
+      },
+      {
+        "name": "processor",
+        "keywords": "3.5ghz intel",
+        "low": "80",
+        "high": "200"
+      },
+      {
+        "name": "memory",
+        "keywords": "16gb",
+        "size": "16gb",
+        "low": "70",
+        "high": "200"
+      },
+      {
+        "name": "storage",
+        "keywords": "500gb ssd",
+        "size": "500gb",
+        "type": "ssd",
+        "low": "150",
+        "high": "300"
+      },
+      {
+        "name": "video card",
+        "keywords": "2gb",
+        "size": "2gb",
+        "low": "40",
+        "high": "100"
+      }
+    ]
+  },
   "type": "template"
 }
 ```
