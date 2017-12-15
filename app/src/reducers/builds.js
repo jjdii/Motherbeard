@@ -37,7 +37,9 @@ const newBuildDefault = {
   storageType: 1,
   storageSize: 1,
   videoCardKeywords: '',
-  videoCardSize: 1
+  videoCardSize: 1,
+  caseKeywords: '',
+  powerSupplyKeywords: ''
 }
 export const newBuild = (state = newBuildDefault, action) => {
   switch (action.type) {

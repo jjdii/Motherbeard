@@ -19,17 +19,14 @@ class NewBuild extends React.Component {
     return (
       <div>
         <Header />
-        <div className="outer-content">
-          <div className="inner-content">
-            <h2 style={{ marginTop: '42px' }}>Create A New Build</h2>
-            <NewBuildForm
-              newBuild={this.props.newBuild}
-              onChange={this.props.onChange}
-              onSubmit={this.props.onSubmit}
-              isActive={this.props.isActive}
-            />
-          </div>
-        </div>
+
+        <h2 style={{ marginTop: '42px' }}>Create A New Build</h2>
+        <NewBuildForm
+          newBuild={this.props.newBuild}
+          onChange={this.props.onChange}
+          onSubmit={this.props.onSubmit}
+          isActive={this.props.isActive}
+        />
         <Footer />
       </div>
     )

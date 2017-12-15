@@ -52,7 +52,8 @@ button::-moz-focus-inner {
 
 .build-row {
   display: table;
-  margin-top: -14px;
+  width: 100%;
+  margin-top: -10px;
   margin-bottom: 28px;
 }
 
@@ -62,11 +63,27 @@ button::-moz-focus-inner {
   line-height: 14px;
   height: 14px;
   padding: 6px 10px;
-  margin-top: 6px;
+  margin-top: 5px;
   background: #ec8007;
   color: #fff;
 }
 .orange-button:hover,
 .orange-button {
   background: #f7870a;
+}
+
+p.build-desc {
+  font-size: 13px;
+  margin-top: 3px;
+  width: auto;
+}
+div.build-form-desc-banner {
+  height: auto;
+  display: block;
+  background: #f8f8f8;
+  padding: 14px 0px;
+  /*border-top: 1px solid #efefef;*/
+
+  margin-bottom: 24px;
+  text-align: left;
 }
