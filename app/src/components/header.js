@@ -35,7 +35,7 @@ const Header = props => {
             <Link to="/builds" className="fleft ease-in no-select">
               Builds
             </Link>
-            <Link to="/templates/new" className="fleft ease-in no-select">
+            <Link to="/builds/new" className="fleft ease-in no-select">
               Create Build
             </Link>
           </div>

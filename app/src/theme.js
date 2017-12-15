@@ -9,16 +9,18 @@ import {
   white,
   darkBlack,
   fullBlack,
-  blueGrey50
+  blueGrey50,
+  orange500,
+  lightBlue900
 } from 'material-ui/styles/colors'
 
 export default {
   fontFamily: 'Lato, sans-serif',
   palette: {
-    primary1Color: blueGrey50,
-    primary2Color: cyan700,
+    primary1Color: lightBlue900,
+    primary2Color: grey100,
     primary3Color: grey400,
-    accent1Color: pinkA200,
+    accent1Color: lightBlue900,
     accent2Color: grey100,
     accent3Color: grey500,
     textColor: darkBlack,

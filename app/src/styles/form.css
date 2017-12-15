@@ -1,0 +1,72 @@
+[role='button'],
+input[type='submit'],
+input[type='reset'],
+input[type='button'],
+button {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* Reset `button` and button-style `input` default styles */
+input[type='submit'],
+input[type='reset'],
+input[type='button'],
+button {
+  background: none;
+  border: 0;
+  color: inherit;
+  /* cursor: default; */
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  -webkit-appearance: button; /* for input */
+  -webkit-user-select: none; /* for button */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+}
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* Make `a` like a button */
+[role='button'] {
+  color: inherit;
+  cursor: default;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  white-space: pre;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.build-row {
+  display: table;
+  margin-top: -14px;
+  margin-bottom: 28px;
+}
+
+.orange-button {
+  font-family: 'Fira Sans';
+  font-size: 14px;
+  line-height: 14px;
+  height: 14px;
+  padding: 6px 10px;
+  margin-top: 6px;
+  background: #ec8007;
+  color: #fff;
+}
+.orange-button:hover,
+.orange-button {
+  background: #f7870a;
+}

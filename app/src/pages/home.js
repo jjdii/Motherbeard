@@ -22,7 +22,7 @@ class Home extends React.Component {
           <div className="inner-content" style={{ textAlign: 'center' }}>
             <h1 id="banner-title">Save money building your new computer</h1>
             <Link
-              to="/builds"
+              to="/builds/new"
               id="shop-button"
               className="ease-in orange-button"
             >

@@ -527,7 +527,7 @@ span.popout-dropdown a:hover {
   background: #ececec;
   border-top: 1px solid #cacaca;
   display: table;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
 }
 #footer a {
   color: #555;
@@ -714,6 +714,9 @@ h3 {
 	}*/
   #footer {
     padding-bottom: 26px;
+  }
+  #post-footer {
+    text-align: center;
   }
   /*}
 @media screen and (max-width: 600px) {*/

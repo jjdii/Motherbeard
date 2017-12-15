@@ -104,7 +104,7 @@ export default class DrawerButton extends React.Component {
             <MenuItem
               onClick={() => {
                 this.handleClose()
-                history.push('/templates/new')
+                history.push('/builds/new')
               }}
               leftIcon={<CreateBuildIcon />}
               style={{

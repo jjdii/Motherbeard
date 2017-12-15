@@ -3,6 +3,7 @@ import { Switch, Router, Route } from 'react-router-dom'
 import Home from './pages/home'
 import Builds from './pages/builds/index'
 import ShowBuild from './pages/builds/show'
+import NewBuild from './pages/builds/new'
 import Products from './pages/products/index'
 import ShowProduct from './pages/products/show'
 import history from './history'
@@ -19,6 +20,7 @@ const App = props => {
           <div>
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route path="/builds/new" component={NewBuild} />
               <Route path="/builds/:id" component={ShowBuild} />
               <Route path="/builds" component={Builds} />
               <Route path="/products/:id" component={ShowProduct} />

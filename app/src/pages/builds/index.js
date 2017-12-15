@@ -17,6 +17,7 @@ class Builds extends React.Component {
 
         <div id="featured-products" className="outer-content">
           <div id="featured-products-inner" className="inner-content">
+            <h2>All Builds</h2>
             {map(listBuild(this.props.products), this.props.builds)}
           </div>
         </div>
