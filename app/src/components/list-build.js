@@ -60,40 +60,42 @@ export const listBuild = products => build => {
   //console.log('caseImgUrl', caseImgUrl)
 
   return (
-    <div key={prop('_id', build)}>
-      <div className="product-item" style={{ marginLeft: 0 }}>
-        <Link to={`/builds/${prop('_id', build)}`}>
-          <img
-            className="product-img"
-            src={caseImgUrl || PlaceholderImg}
-            alt={prop('name', build)}
-            draggable="false"
-          />
-        </Link>
-        <p className="product-price">
-          $<b>{Math.floor(Number(prop('price', build)))}</b>
-          <span className="decimal">
-            {numeral(prop('price', build)).format('.00')}
-          </span>
-        </p>
+    <div
+      key={prop('_id', build)}
+      className="product-item"
+      style={{ marginLeft: 0 }}
+    >
+      <Link to={`/builds/${prop('_id', build)}`}>
+        <img
+          className="product-img"
+          src={caseImgUrl || PlaceholderImg}
+          alt={prop('name', build)}
+          draggable="false"
+        />
+      </Link>
+      <p className="product-price">
+        $<b>{Math.floor(Number(prop('price', build)))}</b>
+        <span className="decimal">
+          {numeral(prop('price', build)).format('.00')}
+        </span>
+      </p>
+      <Link
+        to={`/builds/${prop('_id', build)}`}
+        className="product-link ease-in"
+      >
+        {prop('name', build)}
+      </Link>
+      <div className="clear" />
+      <div className="full-content pli-wrap">
+        {map(listBuildProducts(products), build.products)}
+      </div>
+      <div className="full-content vpd-wrap" align="center">
         <Link
           to={`/builds/${prop('_id', build)}`}
-          className="product-link ease-in"
+          className="grey-button ease-in"
         >
-          {prop('name', build)}
+          View Details
         </Link>
-        <div className="clear" />
-        <div className="full-content pli-wrap">
-          {map(listBuildProducts(products), build.products)}
-        </div>
-        <div className="full-content vpd-wrap" align="center">
-          <Link
-            to={`/builds/${prop('_id', build)}`}
-            className="grey-button ease-in"
-          >
-            View Details
-          </Link>
-        </div>
       </div>
     </div>
   )

@@ -6,6 +6,7 @@ import ShowBuild from './pages/builds/show'
 import NewBuild from './pages/builds/new'
 import Products from './pages/products/index'
 import ShowProduct from './pages/products/show'
+import Cart from './pages/cart'
 import history from './history'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -25,6 +26,7 @@ const App = props => {
               <Route path="/builds" component={Builds} />
               <Route path="/products/:id" component={ShowProduct} />
               <Route path="/products" component={Products} />
+              <Route path="/cart" component={Cart} />
             </Switch>
           </div>
         </ScrollToTop>

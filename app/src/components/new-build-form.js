@@ -65,7 +65,7 @@ class NewBuildForm extends React.Component {
           this.props.onSubmit(this.props.newBuild)
           e.preventDefault()
         }}
-        style={{ paddingBottom: '50px' }}
+        style={{ paddingBottom: '53px' }}
       >
         <div className="outer-content">
           <div className="inner-content">
@@ -83,7 +83,7 @@ class NewBuildForm extends React.Component {
                   this.props.onChange('name', e.target.value)
                 }}
                 style={{
-                  width: '40vw'
+                  width: '100%'
                 }}
                 required={true}
               />
@@ -120,54 +120,6 @@ class NewBuildForm extends React.Component {
                 }}
                 style={keywordStyle}
               />
-              <SelectField
-                floatingLabelText="Type"
-                floatingLabelFixed={true}
-                value={this.props.newBuild.processorType}
-                onChange={(e, l, c) => {
-                  this.props.onChange('processorType', c)
-                }}
-                style={selectStyle}
-              >
-                <MenuItem value={1} primaryText="any" />
-                <MenuItem value={2} primaryText="Intel" />
-                <MenuItem value={3} primaryText="AMD" />
-              </SelectField>
-              <SelectField
-                floatingLabelText="Speed"
-                floatingLabelFixed={true}
-                value={this.props.newBuild.processorSpeed}
-                onChange={(e, l, c) => {
-                  this.props.onChange('processorSpeed', c)
-                }}
-                style={biggestSelectStyle}
-              >
-                <MenuItem value={1} primaryText="any" />
-                <MenuItem value={2} primaryText="under 1.5ghz" />
-                <MenuItem value={2} primaryText="1.5ghz to 2ghz" />
-                <MenuItem value={3} primaryText="2ghz to 2.5ghz" />
-                <MenuItem value={4} primaryText="2.5ghz to 3ghz" />
-                <MenuItem value={5} primaryText="3ghz to 3.5ghz" />
-                <MenuItem value={6} primaryText="3.5ghz to 4ghz" />
-                <MenuItem value={7} primaryText="4ghz to 4.5ghz" />
-                <MenuItem value={8} primaryText="4.5ghz to 5ghz" />
-                <MenuItem value={9} primaryText="over 5ghz" />
-              </SelectField>
-              <SelectField
-                floatingLabelText="Cores"
-                floatingLabelFixed={true}
-                value={this.props.newBuild.processorCores}
-                onChange={(e, l, c) => {
-                  this.props.onChange('processorCores', c)
-                }}
-                style={selectStyle}
-              >
-                <MenuItem value={1} primaryText="any" />
-                <MenuItem value={2} primaryText="2" />
-                <MenuItem value={3} primaryText="4" />
-                <MenuItem value={4} primaryText="6" />
-                <MenuItem value={5} primaryText="8" />
-              </SelectField>
             </section>
 
             <h3>Motherboard</h3>
@@ -187,19 +139,6 @@ class NewBuildForm extends React.Component {
                 }}
                 style={keywordStyle}
               />
-              <SelectField
-                floatingLabelText="Max Memory"
-                floatingLabelFixed={true}
-                value={this.props.newBuild.motherboardMemory}
-                onChange={(e, l, c) => {
-                  this.props.onChange('motherboardMemory', c)
-                }}
-                style={selectStyle}
-              >
-                <MenuItem value={1} primaryText="16gb" />
-                <MenuItem value={2} primaryText="32gb" />
-                <MenuItem value={3} primaryText="64gb" />
-              </SelectField>
             </section>
 
             <h3>Memory</h3>
@@ -219,27 +158,6 @@ class NewBuildForm extends React.Component {
                 }}
                 style={keywordStyle}
               />
-              <SelectField
-                floatingLabelText="Size"
-                floatingLabelFixed={true}
-                value={this.props.newBuild.memorySize}
-                onChange={(e, l, c) => {
-                  this.props.onChange('memorySize', c)
-                }}
-                style={selectStyle}
-              >
-                <MenuItem value={1} primaryText="any" />
-                <MenuItem value={2} primaryText="2gb" />
-                <MenuItem value={3} primaryText="4gb" />
-                <MenuItem value={4} primaryText="6gb" />
-                <MenuItem value={5} primaryText="8gb" />
-                <MenuItem value={6} primaryText="12gb" />
-                <MenuItem value={7} primaryText="16gb" />
-                <MenuItem value={8} primaryText="24gb" />
-                <MenuItem value={9} primaryText="32gb" />
-                <MenuItem value={10} primaryText="48gb" />
-                <MenuItem value={11} primaryText="64gb" />
-              </SelectField>
             </section>
 
             <h3>Storage</h3>
@@ -259,33 +177,6 @@ class NewBuildForm extends React.Component {
                 }}
                 style={keywordStyle}
               />
-              <SelectField
-                floatingLabelText="Type"
-                floatingLabelFixed={true}
-                value={this.props.newBuild.storageType}
-                onChange={(e, l, c) => {
-                  this.props.onChange('storageType', c)
-                }}
-                style={selectStyle}
-              >
-                <MenuItem value={1} primaryText="hhd" />
-                <MenuItem value={2} primaryText="ssd" />
-              </SelectField>
-              <SelectField
-                floatingLabelText="Size"
-                floatingLabelFixed={true}
-                value={this.props.newBuild.storageSize}
-                onChange={(e, l, c) => {
-                  this.props.onChange('storageSize', c)
-                }}
-                style={biggerSelectStyle}
-              >
-                <MenuItem value={1} primaryText="125gb" />
-                <MenuItem value={2} primaryText="250gb" />
-                <MenuItem value={3} primaryText="500gb" />
-                <MenuItem value={4} primaryText="1tb" />
-                <MenuItem value={5} primaryText="2tb" />
-              </SelectField>
             </section>
 
             <h3>Case</h3>
@@ -342,7 +233,11 @@ class NewBuildForm extends React.Component {
           <div className="inner-content">
             <div style={{ width: '100%', display: 'table' }}>
               <Toggle
-                toggled={true}
+                onToggle={(e, data) => {
+                  console.log(data)
+                  this.props.onChange('videoCardToggle', data)
+                }}
+                defaultToggled={true}
                 style={{
                   display: 'inline-block',
                   float: 'left',
@@ -378,25 +273,14 @@ class NewBuildForm extends React.Component {
                 }}
                 style={keywordStyle}
               />
-              <SelectField
-                floatingLabelText="Size"
-                floatingLabelFixed={true}
-                value={this.props.newBuild.videoCardSize}
-                onChange={(e, l, c) => {
-                  this.props.onChange('videoCardSize', c)
-                }}
-                style={selectStyle}
-              >
-                <MenuItem value={1} primaryText="1gb" />
-                <MenuItem value={2} primaryText="2gb" />
-                <MenuItem value={3} primaryText="4gb" />
-                <MenuItem value={4} primaryText="8gb" />
-                <MenuItem value={5} primaryText="16gb" />
-              </SelectField>
             </section>
 
             <div style={{ width: '100%', display: 'table' }}>
               <Toggle
+                onToggle={(e, data) => {
+                  console.log(data)
+                  this.props.onChange('networkToggle', data)
+                }}
                 style={{
                   display: 'inline-block',
                   float: 'left',
@@ -440,6 +324,10 @@ class NewBuildForm extends React.Component {
 
             <div style={{ width: '100%', display: 'table' }}>
               <Toggle
+                onToggle={(e, data) => {
+                  console.log(data)
+                  this.props.onChange('opticalDriveToggle', data)
+                }}
                 style={{
                   display: 'inline-block',
                   float: 'left',

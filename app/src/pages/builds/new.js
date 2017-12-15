@@ -4,10 +4,12 @@ import Footer from '../../components/footer'
 import NewBuildForm from '../../components/new-build-form'
 import { connect } from 'react-redux'
 import {
+  setBuilds,
   onChangeNewBuildForm,
   addNewBuild,
   isActive
 } from '../../action-creators/builds'
+import { setProducts } from '../../action-creators/products'
 import '../../styles/form.css'
 
 // props.resources === []
@@ -20,7 +22,7 @@ class NewBuild extends React.Component {
       <div>
         <Header />
 
-        <h2 style={{ marginTop: '42px' }}>Create A New Build</h2>
+        <h2 style={{ marginTop: '34px' }}>Create A New Build</h2>
         <NewBuildForm
           newBuild={this.props.newBuild}
           onChange={this.props.onChange}
@@ -41,10 +43,12 @@ const mapActionsToProps = dispatch => {
       dispatch(isActive)
     },
     onSubmit: data => {
-      console.log('data', data)
+      console.log('incoming data', data)
       dispatch(addNewBuild(data))
     },
     onMount: () => {
+      // dispatch(setBuilds)
+      // dispatch(setProducts)
       dispatch(isActive)
     }
   }

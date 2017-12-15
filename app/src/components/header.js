@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { prop } from 'ramda'
 import DrawerButton from './drawer'
-import LogoImg from '../images/logo-small-black.png'
+import LogoImg from '../images/logo-small-black-bw3.png'
 import CartImg from '../images/cart.png'
 
 const Header = props => {
@@ -53,7 +55,9 @@ const Header = props => {
                 alt="shopping cart"
                 draggable="false"
               />
-              &nbsp;<span id="cart-num">(0)</span>
+              &nbsp;<span id="cart-num">
+                ({prop('cart', props).length || 0})
+              </span>
             </Link>
           </div>
         </div>
@@ -62,4 +66,10 @@ const Header = props => {
   )
 }
 
-export default Header
+const connector = connect(
+  state => state,
+  dispatch => {
+    return {}
+  }
+)
+export default connector(Header)

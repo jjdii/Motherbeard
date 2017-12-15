@@ -50,7 +50,7 @@ h3 {
 }
 
 #product-display {
-  margin-top: 56px;
+  margin-top: 40px;
 }
 #product-display,
 #product-display-inner,
@@ -452,9 +452,9 @@ h2#toolkit-head {
   }
 }
 @media screen and (max-width: 600px) {
-  #product-display {
+  /*#product-display {
     margin-top: 45px;
-  }
+  }*/
   #product-imgs {
     width: 90%;
     text-align: center;

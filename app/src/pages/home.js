@@ -5,10 +5,15 @@ import { map } from 'ramda'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import { listBuild } from '../components/list-build'
+import { setBuilds } from '../action-creators/builds'
+import { setProducts } from '../action-creators/products'
 import BannerImg from '../images/motherboard-bg.png'
 
 class Home extends React.Component {
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.onMount()
+  }
+
   render() {
     return (
       <div>
@@ -44,5 +49,15 @@ class Home extends React.Component {
   }
 }
 
-const connector = connect(state => state)
+const connector = connect(
+  state => state,
+  dispatch => {
+    return {
+      onMount: () => {
+        dispatch(setBuilds)
+        dispatch(setProducts)
+      }
+    }
+  }
+)
 export default connector(Home)

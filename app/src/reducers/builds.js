@@ -3,7 +3,7 @@ import {
   SET_CURRENT_BUILD,
   ONCHANGE_NEW_BUILD_FORM
 } from '../constants'
-import { merge } from 'ramda'
+import { merge, concat, append, find, propEq } from 'ramda'
 
 export const builds = (state = [], action) => {
   switch (action.type) {
@@ -38,8 +38,11 @@ const newBuildDefault = {
   storageSize: 1,
   videoCardKeywords: '',
   videoCardSize: 1,
+  videoCardToggle: true,
   caseKeywords: '',
-  powerSupplyKeywords: ''
+  powerSupplyKeywords: '',
+  networkToggle: false,
+  opticalDriveToggle: false
 }
 export const newBuild = (state = newBuildDefault, action) => {
   switch (action.type) {
@@ -48,6 +51,28 @@ export const newBuild = (state = newBuildDefault, action) => {
       return merge(state, action.payload)
     case SET_BUILDS:
       return newBuildDefault
+    default:
+      return state
+  }
+}
+
+export const cart = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_TO_CART':
+      //console.log('action.payload', action.payload)
+      if (find(propEq('_id', action.payload._id), state)) {
+        return state
+      } else {
+        let newState = append(action.payload, state)
+        localStorage.removeItem('cart')
+        localStorage.setItem('cart', JSON.stringify(newState))
+        return newState
+      }
+    case 'SET_CART':
+      return action.payload
+    case 'CLEAR_CART':
+      localStorage.clear()
+      return []
     default:
       return state
   }

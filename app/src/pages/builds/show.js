@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import {
   find,
   propEq,
@@ -11,8 +12,11 @@ import {
   compose,
   filter,
   contains,
-  slice
+  slice,
+  toLower
 } from 'ramda'
+import { setBuilds, setCurrentBuild } from '../../action-creators/builds'
+import { setProducts } from '../../action-creators/products'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 import '../../styles/build.css'
@@ -76,7 +80,7 @@ const listBuildProductShort = product => {
 }
 
 const listBuildProductLong = product => {
-  const category = propOr('', 'category', product)
+  const category = toLower(propOr('', 'category', product))
   let iconImg
 
   switch (category) {
@@ -144,12 +148,18 @@ const listBuildProductLong = product => {
 }
 
 class ShowBuild extends React.Component {
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.onMount(this.props.match.params.id)
+  }
   render() {
-    const buildObj =
-      find(propEq('_id', path(['props', 'match', 'params', 'id'], this)))(
-        path(['props', 'builds'], this)
-      ) || []
+    if (pathOr('', ['props', 'currentBuild', 'type'], this) !== 'build') {
+      this.props.onMount(this.props.match.params.id)
+    }
+    // const buildObj =
+    //   find(propEq('_id', path(['props', 'match', 'params', 'id'], this)))(
+    //     path(['props', 'builds'], this)
+    //   ) || []
+    const buildObj = pathOr([], ['props', 'currentBuild'], this)
 
     const productIdArr = map(prop('_id'), propOr([], 'products', buildObj))
 
@@ -215,6 +225,9 @@ class ShowBuild extends React.Component {
 
                 <div id="add-to-cart">
                   <a
+                    onClick={e => {
+                      this.props.onAddCart(this.props.currentBuild)
+                    }}
                     id="to-cart-button"
                     className="orange-button fleft ease-in"
                     style={{ cursor: 'pointer' }}
@@ -223,13 +236,13 @@ class ShowBuild extends React.Component {
                   </a>
                 </div>
                 <div id="in-cart">
-                  <a
-                    href="/cart/"
+                  <Link
+                    to="/cart"
                     className="small-grey-button ease-in no-select"
                     style={{ cursor: 'pointer', marginLeft: 0 }}
                   >
                     View Cart
-                  </a>
+                  </Link>
                   <a
                     className="small-grey-button ease-in no-select"
                     style={{ cursor: 'pointer' }}
@@ -365,5 +378,19 @@ class ShowBuild extends React.Component {
   }
 }
 
-const connector = connect(state => state)
+const connector = connect(
+  state => state,
+  dispatch => {
+    return {
+      onMount: id => {
+        dispatch(setCurrentBuild(id))
+        //dispatch(setBuilds)
+        dispatch(setProducts)
+      },
+      onAddCart: data => {
+        dispatch({ type: 'ADD_TO_CART', payload: data })
+      }
+    }
+  }
+)
 export default connector(ShowBuild)

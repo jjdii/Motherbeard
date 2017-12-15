@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { builds, currentBuild, newBuild } from './reducers/builds'
+import { builds, currentBuild, newBuild, cart } from './reducers/builds'
 import { products, currentProduct } from './reducers/products'
 
 import thunk from 'redux-thunk'
@@ -10,7 +10,8 @@ const store = createStore(
     currentBuild,
     newBuild,
     products,
-    currentProduct
+    currentProduct,
+    cart
   }),
   applyMiddleware(thunk)
 )

@@ -106,7 +106,7 @@ app.get('/newegg/products', async (req, res, next) => {
 
 app.post('/newegg/builds', async (req, res, next) => {
   const recordsPerPage = 1000
-  const url = `${neweggUrl}&currency=USD&sort-by=sale-price&records-per-page=${recordsPerPage}`
+  const url = `${neweggUrl}&currency=USD&sort-by=sale-price`
 
   const promiseArr = compose(
     reduce((acc, val) => {
@@ -117,14 +117,20 @@ app.post('/newegg/builds', async (req, res, next) => {
 
       let keywordStr = ''
       if (not(isEmpty(name)) && not(isEmpty(keywords))) {
-        keywordStr = `&keywords=+${name} +${keywords}`
+        keywordStr = `+${name} +${keywords}`
       }
 
-      return acc.concat(
-        fetchNewegg(
-          `${url}${keywordStr}&low-sale-price=${lowPrice}&high-sale-price=${highPrice}`
+      if (isEmpty(keywords)) {
+        return acc
+      } else {
+        return acc.concat(
+          fetchNewegg(
+            `${url}&keywords=${encodeURIComponent(
+              keywordStr
+            )}&low-sale-price=${lowPrice}&high-sale-price=${highPrice}`
+          )
         )
-      )
+      }
     }, []),
     path(['body', 'build'])
   )(req)
@@ -213,7 +219,7 @@ app.post('/newegg/builds', async (req, res, next) => {
             searchFor
           )
 
-          if (searchHits >= searchFor.length) {
+          if (searchHits >= searchFor.length - 1) {
             productFound += searchHits
 
             let productObj = compose(
@@ -294,22 +300,37 @@ app.post('/newegg/builds', async (req, res, next) => {
         getDefaultProducts()
           .then(result => {
             const defaultProducts = prop('products', result)
-
-            let promArr = reduce(
-              (acc, val) => {
-                if (isNil(prop('_id', val))) {
-                  let productUPC = compose(
-                    prop('upc'),
-                    v => find(propEq('type', v), defaultProducts),
-                    prop('type')
-                  )(val)
-                  console.log('in promArr upc is', productUPC)
-                  return acc.concat(fetchNewegg(`${url}&upc=${productUPC}`))
-                }
-              },
-              [],
-              buildArr
-            )
+            // console.log('buildArr', buildArr)
+            // console.log('defaultProducts', defaultProducts)
+            // let promArr = reduce(
+            //   (acc, val) => {
+            //     if (isNil(prop('_id', val))) {
+            //       console.log('type', prop('type', val))
+            //       let productUPC = compose(
+            //         prop('upc'),
+            //         v => find(propEq('type', v), defaultProducts),
+            //         prop('type')
+            //       )(val)
+            //       console.log('productUPC', productUPC)
+            //       return acc.concat(fetchNewegg(`${url}&upc=${productUPC}`))
+            //     }
+            //   },
+            //   [],
+            //   buildArr
+            // )
+            let promArr = []
+            buildArr.forEach(p => {
+              if (isNil(prop('_id', p))) {
+                console.log('type', prop('type', p))
+                let productUPC = compose(
+                  prop('upc'),
+                  v => find(propEq('type', v), defaultProducts),
+                  prop('type')
+                )(p)
+                console.log('productUPC', productUPC)
+                promArr.push(fetchNewegg(`${url}&upc=${productUPC}`))
+              }
+            })
 
             Promise.all(promArr)
               .then(resArr => {
@@ -376,6 +397,7 @@ app.post('/newegg/builds', async (req, res, next) => {
                 // console.log('newBuildArr', newBuildArr)
 
                 let buildObj = {
+                  ok: true,
                   name: pathOr('', ['body', 'name'], req),
                   templateId: pkGenerator(
                     'template_',
@@ -425,6 +447,7 @@ app.post('/newegg/builds', async (req, res, next) => {
           .catch(err => console.log('err: getting default products', err))
       } else {
         let buildObj = {
+          ok: true,
           name: pathOr('', ['body', 'name'], req),
           templateId: pkGenerator(
             'template_',
@@ -446,7 +469,10 @@ app.post('/newegg/builds', async (req, res, next) => {
         }
 
         addBuild(buildObj)
-          .then(result => console.log('build added', prop('id', result)))
+          .then(result => {
+            console.log('build added', prop('id', result))
+            return JSON.stringify(result)
+          })
           .catch(err => console.log('err: adding build', err))
 
         let templateObj = compose(

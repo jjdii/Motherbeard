@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { prop } from 'ramda'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 import HomeIcon from 'material-ui/svg-icons/action/home'
@@ -10,7 +12,7 @@ import NavOpenImg from '../images/nav-button.png'
 import NavCloseImg from '../images/nav-close.png'
 import history from '../history'
 
-export default class DrawerButton extends React.Component {
+class DrawerButton extends React.Component {
   constructor(props) {
     super(props)
     this.state = { open: false }
@@ -116,18 +118,6 @@ export default class DrawerButton extends React.Component {
             <MenuItem
               onClick={() => {
                 this.handleClose()
-                history.push('/search')
-              }}
-              leftIcon={<SearchIcon />}
-              style={{
-                borderBottom: '1px solid #d1d1d1'
-              }}
-            >
-              Search
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                this.handleClose()
                 history.push('/cart')
               }}
               leftIcon={<CartIcon />}
@@ -144,7 +134,7 @@ export default class DrawerButton extends React.Component {
                   lineHeight: 'inherit'
                 }}
               >
-                (0)
+                ({prop('cart', this.props).length || 0})
               </span>
             </MenuItem>
           </div>
@@ -153,3 +143,11 @@ export default class DrawerButton extends React.Component {
     )
   }
 }
+
+const connector = connect(
+  state => state,
+  dispatch => {
+    return {}
+  }
+)
+export default connector(DrawerButton)

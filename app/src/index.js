@@ -20,3 +20,12 @@ registerServiceWorker()
 
 store.dispatch(setBuilds)
 store.dispatch(setProducts)
+
+if (localStorage.getItem('cart')) {
+  let localCart = localStorage.getItem('cart')
+  //console.log("localStorage.getItem('cart')", localCart)
+  store.dispatch({
+    type: 'SET_CART',
+    payload: JSON.parse(localCart)
+  })
+}

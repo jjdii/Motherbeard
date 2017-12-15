@@ -4,6 +4,8 @@ import { map } from 'ramda'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 import { listBuild } from '../../components/list-build'
+import { setBuilds } from '../../action-creators/builds'
+import { setProducts } from '../../action-creators/products'
 
 class Builds extends React.Component {
   componentDidMount() {
@@ -15,9 +17,9 @@ class Builds extends React.Component {
       <div>
         <Header title="All Builds" />
 
-        <div id="featured-products" className="outer-content">
-          <div id="featured-products-inner" className="inner-content">
-            <h2>All Builds</h2>
+        <div className="outer-content">
+          <div className="inner-content">
+            <h2 style={{ marginTop: '34px' }}>All Builds</h2>
             {map(listBuild(this.props.products), this.props.builds)}
           </div>
         </div>
@@ -33,8 +35,8 @@ const connector = connect(
   dispatch => {
     return {
       onMount: () => {
-        // dispatch(setBuilds)
-        // dispatch(setProducts)
+        dispatch(setBuilds)
+        dispatch(setProducts)
       }
     }
   }
