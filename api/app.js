@@ -212,12 +212,17 @@ app.post('/newegg/builds', async (req, res, next) => {
 
         productsArr.some(product => {
           const category = toLower(product['advertiser-category'])
+          const searchName = toLower(product['name'])
           const searchHits = reduce(
             (acc, val) =>
-              category.search(toLower(val)) === -1 ? acc : acc + 1,
+              category.search(toLower(val)) === -1 &&
+              searchName.search(toLower(val)) === -1
+                ? acc
+                : acc + 1,
             0,
             searchFor
           )
+          console.log('searchHits', searchHits)
 
           if (searchHits >= searchFor.length - 1) {
             productFound += searchHits
@@ -302,22 +307,6 @@ app.post('/newegg/builds', async (req, res, next) => {
             const defaultProducts = prop('products', result)
             // console.log('buildArr', buildArr)
             // console.log('defaultProducts', defaultProducts)
-            // let promArr = reduce(
-            //   (acc, val) => {
-            //     if (isNil(prop('_id', val))) {
-            //       console.log('type', prop('type', val))
-            //       let productUPC = compose(
-            //         prop('upc'),
-            //         v => find(propEq('type', v), defaultProducts),
-            //         prop('type')
-            //       )(val)
-            //       console.log('productUPC', productUPC)
-            //       return acc.concat(fetchNewegg(`${url}&upc=${productUPC}`))
-            //     }
-            //   },
-            //   [],
-            //   buildArr
-            // )
             let promArr = []
             buildArr.forEach(p => {
               if (isNil(prop('_id', p))) {
@@ -357,8 +346,8 @@ app.post('/newegg/builds', async (req, res, next) => {
                   const category = prop(
                     'type',
                     find(
-                      i =>
-                        toLower(prop('_id', i)) == toLower(prop('_id', prod)),
+                      x =>
+                        toLower(prop('_id', x)) == toLower(prop('_id', prod)),
                       defaultProducts
                     )
                   )

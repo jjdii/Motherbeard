@@ -60,11 +60,7 @@ export const listBuild = products => build => {
   //console.log('caseImgUrl', caseImgUrl)
 
   return (
-    <div
-      key={prop('_id', build)}
-      className="product-item"
-      style={{ marginLeft: 0 }}
-    >
+    <div key={prop('_id', build)} className="product-item">
       <Link to={`/builds/${prop('_id', build)}`}>
         <img
           className="product-img"

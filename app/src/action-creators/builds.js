@@ -82,16 +82,10 @@ export const addNewBuild = data => async (dispatch, getState) => {
         keywords: propOr('', 'videoCardKeywords', data),
         low: '30',
         high: '200'
-      },
-      {
-        name: 'network'
-      },
-      {
-        name: 'optical drive'
       }
     ]
   })
-  console.log('transformed data', JSON.parse(body))
+  //console.log('transformed data', JSON.parse(body))
 
   const result = await fetch(`${url}/newegg/builds`, {
     headers,
