@@ -250,7 +250,7 @@ app.post('/newegg/builds', async (req, res, next) => {
               _id,
               type: pathOr(
                 null,
-                ['body', 'build', buildArr.length, 'name'],
+                ['body', 'build', buildArr.length || 0, 'name'],
                 req
               ),
               price: numeral(product['sale-price']).format('0,0.00')

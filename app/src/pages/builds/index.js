@@ -17,7 +17,7 @@ class Builds extends React.Component {
       <div>
         <Header title="All Builds" />
 
-        <div id="featured-products" className="outer-content">
+        <div className="outer-content">
           <div id="featured-products-inner" className="inner-content">
             <h2 style={{ marginTop: '34px' }}>All Builds</h2>
             {map(listBuild(this.props.products), this.props.builds)}
